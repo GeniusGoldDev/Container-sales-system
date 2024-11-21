@@ -1,26 +1,23 @@
+Olá querido
 
+aqui é o joaquim.
 
-Hi dear
+Sinceramente, tenho um problema.
 
-this is joaquim.
+Acho que é melhor comunicar sobre seu projeto via skype ou e-mail.
 
-Frankly i have one problem with me.
+A plataforma Fiverr tem muitas taxas, são 20% para mim e 3% para você.
 
-I think it is the better to communicate about your project via skype or email.
+Na verdade, seu orçamento é muito baixo para mim, mas farei o meu melhor para fazer uma boa entrega. De qualquer forma, a taxa do Fiverr é muito alta. Então, se criarmos uma oferta no Fiverr, minha renda total será de $ 480 quando você pagar $ 600.
 
-Fiverr platform has a lot of fee, it is 20% for me and 3% for you.
+É muito difícil para mim prosseguir com a tarefa no Fiverr.
 
-Actullay your budget is too low for me and Fiverr fee is too high. so If we create an offer in fiverr my total income will be $480 when you pay $600.
+E farei o progresso para mostrar a você e confirmar no repositório git. Então, você verificará o progresso diariamente e não se preocupará com o trabalho do Fiverr.
 
-It's too difficult for me to proceed the task in fiverr.
+Espero que você entenda esse problema.
 
-And I will make progress to show you and commit into git repo. So you will check the progress daily and not worry about the work out of the fiverr.
+Aguardarei seu contato.
 
-hope you understand this problem.
-
-I will wait your contact.
-
-Thanks
-My skype address is live:.cid.e6a0e1af95fd6263
-My gmail is gold005dev@gmail.com
-
+Obrigado
+Meu endereço do Skype está ativo: .cid.e6a0e1af95fd6263
+Meu gmail é gold005dev@gmail.com
