@@ -11,7 +11,7 @@
                                 $settings=DB::table('settings')->get();
 
                             @endphp
-                            <li><i class="ti-headphone-alt"></i>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
+                            <li><i class="ti-headphone-alt"></i>+1 (774) 899-4671</li>
                             <li><i class="ti-email"></i> Canalbigmundi@gmail.com</li>
                         </ul>
                     </div>

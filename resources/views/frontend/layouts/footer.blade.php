@@ -15,7 +15,7 @@
 								$settings=DB::table('settings')->get();
 							@endphp
 							<p class="text">@foreach($settings as $data) {{$data->short_des}} @endforeach</p>
-							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
+							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">your_number</a></span></p>
 						</div>
 						<!-- End Single Widget -->
 					</div>
@@ -54,13 +54,13 @@
 							<!-- Single Widget -->
 							<div class="contact">
 								<ul>
-									<li>@foreach($settings as $data) {{$data->address}} @endforeach</li>
-									<li>@foreach($settings as $data) {{$data->email}} @endforeach</li>
-									<li>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
+									<li>Address</li>
+									<li>Email</li>
+									<li>Phone</li>
 								</ul>
 							</div>
 							<!-- End Single Widget -->
-							<div class="sharethis-inline-follow-buttons"></div>
+							<!-- <div class="sharethis-inline-follow-buttons"></div> -->
 						</div>
 						<!-- End Single Widget -->
 					</div>
@@ -74,7 +74,7 @@
 					<div class="row">
 						<div class="col-lg-6 col-12">
 							<div class="left">
-								<p>Copyright © {{date('Y')}} <a href="https://github.com/Prajwal100" target="_blank">Prajwal Rai</a>  -  All Rights Reserved.</p>
+								<p>Copyright © {{date('Y')}} <a href="" target="_blank">Vitalii Shcherbak</a>  -  All Rights Reserved.</p>
 							</div>
 						</div>
 						<div class="col-lg-6 col-12">
@@ -88,7 +88,7 @@
 		</div>
 	</footer>
 	<!-- /End Footer Area -->
- 
+
 	<!-- Jquery -->
     <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
     <script src="{{asset('frontend/js/jquery-migrate-3.0.0.js')}}"></script>
@@ -125,7 +125,7 @@
 	<!-- Active JS -->
 	<script src="{{asset('frontend/js/active.js')}}"></script>
 
-	
+
 	@stack('scripts')
 	<script>
 		setTimeout(function(){

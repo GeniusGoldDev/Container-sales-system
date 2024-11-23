@@ -62,7 +62,7 @@
                                 </div>
                                 <!--/ End Single Widget -->
                                 <!-- Shop By Price -->
-                                    <div class="single-widget range">
+                                    <!-- <div class="single-widget range">
                                         <h3 class="title">Shop by Price</h3>
                                         <div class="price-filter">
                                             <div class="price-filter-inner">
@@ -82,7 +82,7 @@
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div> -->
                                     <!--/ End Shop By Price -->
                                 <!-- Single Widget -->
                                 <div class="single-widget recent-post">
@@ -111,7 +111,7 @@
                                 </div>
                                 <!--/ End Single Widget -->
                                 <!-- Single Widget -->
-                                <div class="single-widget category">
+                                <!-- <div class="single-widget category">
                                     <h3 class="title">Brands</h3>
                                     <ul class="categor-list">
                                         @php
@@ -121,7 +121,7 @@
                                             <li><a href="{{route('product-brand',$brand->slug)}}">{{$brand->title}}</a></li>
                                         @endforeach
                                     </ul>
-                                </div>
+                                </div> -->
                                 <!--/ End Single Widget -->
                         </div>
                     </div>
