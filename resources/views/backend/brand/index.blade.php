@@ -14,45 +14,36 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        @if(count($brands)>0)
+        @if(count($bases)>0)
         <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
-              <th>Title</th>
-              <th>Slug</th>
+              <th>City</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>S.N.</th>
-              <th>Title</th>
-              <th>Slug</th>
-              <th>Status</th>
-              <th>Action</th>
-              </tr>
-          </tfoot>
           <tbody>
-            @foreach($brands as $brand)
+            @foreach($bases as $base)
                 <tr>
-                    <td>{{$brand->id}}</td>
-                    <td>{{$brand->title}}</td>
-                    <td>{{$brand->slug}}</td>
+                    <td>{{$base->cityname}}</td>
+                    <td>{{$base->latitude}}</td>
+                    <td>{{$base->longitude}}</td>
                     <td>
-                        @if($brand->status=='active')
-                            <span class="badge badge-success">{{$brand->status}}</span>
+                        @if($base->status=='active')
+                            <span class="badge badge-success">{{$base->status}}</span>
                         @else
-                            <span class="badge badge-warning">{{$brand->status}}</span>
+                            <span class="badge badge-warning">{{$base->status}}</span>
                         @endif
                     </td>
                     <td>
-                        <a href="{{route('brand.edit',$brand->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                        <form method="POST" action="{{route('brand.destroy',[$brand->id])}}">
+                        <a href="{{route('brand.edit',$base->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                        <form method="POST" action="{{route('brand.destroy',[$base->id])}}">
                           @csrf
                           @method('delete')
-                              <button class="btn btn-danger btn-sm dltBtn" data-id={{$brand->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                              <button class="btn btn-danger btn-sm dltBtn" data-id={{$base->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </td>
                     {{-- Delete Modal --}}
@@ -79,7 +70,7 @@
             @endforeach
           </tbody>
         </table>
-        <span style="float:right">{{$brands->links()}}</span>
+
         @else
           <h6 class="text-center">No Base found!!! Please create Base</h6>
         @endif

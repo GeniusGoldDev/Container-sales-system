@@ -56,8 +56,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brand=Brand::orderBy('id','DESC')->paginate();
-        return view('backend.brand.index')->with('brands',$brand);
+        $bases=Base::orderBy('id','DESC')->paginate();
+        return view('backend.brand.index')->with('bases',$bases);
     }
 
     /**
@@ -137,11 +137,11 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        $brand=Brand::find($id);
-        if(!$brand){
-            request()->session()->flash('error','Brand not found');
+        $base=Base::find($id);
+        if(!$base){
+            request()->session()->flash('error','Base not found');
         }
-        return view('backend.brand.edit')->with('brand',$brand);
+        return view('backend.brand.edit')->with('base',$base);
     }
 
 
@@ -154,15 +154,13 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $brand=Brand::find($id);
-        $this->validate($request,[
-            'title'=>'string|required',
-        ]);
+        $base=Base::find($id);
+
         $data=$request->all();
 
-        $status=$brand->fill($data)->save();
+        $status=$base->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Brand successfully updated');
+            request()->session()->flash('success','Base successfully updated');
         }
         else{
             request()->session()->flash('error','Error, Please try again');
@@ -178,11 +176,11 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        $brand=Brand::find($id);
-        if($brand){
-            $status=$brand->delete();
+        $base=Base::find($id);
+        if($base){
+            $status=$base->delete();
             if($status){
-                request()->session()->flash('success','Brand successfully deleted');
+                request()->session()->flash('success','Base successfully deleted');
             }
             else{
                 request()->session()->flash('error','Error, Please try again');
@@ -190,7 +188,7 @@ class BrandController extends Controller
             return redirect()->route('brand.index');
         }
         else{
-            request()->session()->flash('error','Brand not found');
+            request()->session()->flash('error','Base not found');
             return redirect()->back();
         }
     }

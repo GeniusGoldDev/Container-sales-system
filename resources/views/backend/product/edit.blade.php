@@ -79,16 +79,6 @@
         </div>
 
         <div class="form-group">
-          <label for="condition">Condition</label>
-          <select name="condition" class="form-control">
-              <option value="">--Select Condition--</option>
-              <option value="default" {{(($product->condition=='default')? 'selected':'')}}>Default</option>
-              <option value="new" {{(($product->condition=='new')? 'selected':'')}}>New</option>
-              <option value="hot" {{(($product->condition=='hot')? 'selected':'')}}>Hot</option>
-          </select>
-        </div>
-
-        <div class="form-group">
           <label for="stock">Quantity <span class="text-danger">*</span></label>
           <input id="quantity" type="number" name="stock" min="0" placeholder="Enter quantity"  value="{{$product->stock}}" class="form-control">
           @error('stock')

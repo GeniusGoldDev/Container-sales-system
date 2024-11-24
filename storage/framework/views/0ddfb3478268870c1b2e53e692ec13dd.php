@@ -112,16 +112,6 @@ unset($__errorArgs, $__bag); ?>
         </div>
 
         <div class="form-group">
-          <label for="condition">Condition</label>
-          <select name="condition" class="form-control">
-              <option value="">--Select Condition--</option>
-              <option value="default" <?php echo e((($product->condition=='default')? 'selected':'')); ?>>Default</option>
-              <option value="new" <?php echo e((($product->condition=='new')? 'selected':'')); ?>>New</option>
-              <option value="hot" <?php echo e((($product->condition=='hot')? 'selected':'')); ?>>Hot</option>
-          </select>
-        </div>
-
-        <div class="form-group">
           <label for="stock">Quantity <span class="text-danger">*</span></label>
           <input id="quantity" type="number" name="stock" min="0" placeholder="Enter quantity"  value="<?php echo e($product->stock); ?>" class="form-control">
           <?php $__errorArgs = ['stock'];
