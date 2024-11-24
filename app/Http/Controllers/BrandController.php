@@ -5,10 +5,50 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Base;
+use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 
 class BrandController extends Controller
 {
+    protected $client;
+
+    public function __construct()
+    {
+        $this->client = new Client([
+            'base_uri' => 'https://nominatim.openstreetmap.org/',
+        ]);
+    }
+
+    public function getLocation(Request $request)
+    {
+        $postalCode = $request->input('postalCode');
+        $country = $request->input('country', 'US'); // Default to US if not provided
+
+        $response = $this->client->get('search', [
+            'query' => [
+                'postalcode' => $postalCode,
+                'country' => $country,
+                'format' => 'json',
+            ],
+            'headers' => [
+                'User-Agent' => 'Container' // Ensure this is specific to your app
+            ]
+        ]);
+
+        $result = json_decode($response->getBody()->getContents(), true);
+        if (!empty($result) && isset($result[0])) {
+            $location = [
+                'lat' => $result[0]['lat'],
+                'lon' => $result[0]['lon'],
+                'cityname' => $result[0]['display_name'], // Adjust as per OpenStreetMap response
+                'total' => $result[0],
+            ];
+            return response()->json($location);
+        } else {
+            return response()->json(['error' => 'Location not found.'], 404);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -72,10 +112,8 @@ class BrandController extends Controller
 
         $base = Base::create($data);
 
-        if ($base) {
-            return response()->json(['success' => 'Record added successfully!']);
-        } else {
-            return response()->json(['error' => 'Failed to add record.'], 500);
+        if($base) {
+            return redirect()->route('brand.index');
         }
     }
 
