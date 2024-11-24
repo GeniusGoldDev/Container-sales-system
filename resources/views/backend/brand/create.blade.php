@@ -7,8 +7,15 @@
     <div class="card-body">
       <form method="post" action="{{route('brand.store')}}">
         {{csrf_field()}}
+
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">City Name <span class="text-danger">*</span></label>
+            <label for="inputTitle" class="col-form-label">ZipCord<span class="text-danger">*</span></label>
+            <input id="zip" type="text" name="zip" placeholder="Enter zip"  value="" class="form-control" require>
+            <button class="btn btn-success" id="zip_button" >Add</button>
+        </div>
+
+        <div class="form-group">
+        <label for="inputTitle" class="col-form-label">City Name <span class="text-danger">*</span></label>
         <input id="cityname" type="text" name="cityname" placeholder="Enter cityname"  value="" class="form-control">
         @error('title')
         <span class="text-danger">{{$message}}</span>
@@ -61,8 +68,50 @@
         height: 150
     });
 
+
+    });
+
+    $(document).ready(function () {
+        $('#zip_button').click(function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            let postalCode = $('#zip').val();
+            let country = 'US'; // You can make this dynamic if needed
+
+            if (postalCode) {
+                $.ajax({
+                    url: "{{ route('brand.getLocation') }}", // Route to call your controller method
+                    type: "GET",
+                    data: {
+                        postalCode: postalCode,
+                        country: country
+                    },
+                    success: function (response) {
+                        // Populate fields with the response data
+                        $('#latitude').val(response.lat);
+                        $('#longitude').val(response.lon);
+                        $('#cityname').val(response.cityname);
+                        console.log(response.total);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert('Failed to fetch location. Please check the ZIP code and try again.');
+                    }
+                });
+            } else {
+                alert('Please enter a ZIP code.');
+            }
+        });
     });
 
 
+
 </script>
+
+<style>
+    #zip_button {
+        margin-top: 15px;
+        width: 90px;
+    }
+</style>
 @endpush
