@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('main-content'); ?>
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
@@ -24,9 +22,7 @@
               <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
-              <th>Size</th>
               <th>Condition</th>
-              <th>Brand</th>
               <th>Stock</th>
               <th>Photo</th>
               <th>Status</th>
@@ -41,9 +37,7 @@
               <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
-              <th>Size</th>
               <th>Condition</th>
-              <th>Brand</th>
               <th>Stock</th>
               <th>Photo</th>
               <th>Status</th>
@@ -69,11 +63,9 @@
                       </sub>
                     </td>
                     <td><?php echo e((($product->is_featured==1)? 'Yes': 'No')); ?></td>
-                    <td>Rs. <?php echo e($product->price); ?> /-</td>
+                    <td><?php echo e($product->price); ?> /-</td>
                     <td>  <?php echo e($product->discount); ?>% OFF</td>
-                    <td><?php echo e($product->size); ?></td>
                     <td><?php echo e($product->condition); ?></td>
-                    <td> <?php echo e(ucfirst($product->brand->title)); ?></td>
                     <td>
                       <?php if($product->stock>0): ?>
                       <span class="badge badge-primary"><?php echo e($product->stock); ?></span>
