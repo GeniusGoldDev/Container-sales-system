@@ -115,6 +115,7 @@ class BrandController extends Controller
         if($base) {
             return redirect()->route('brand.index');
         }
+
     }
 
     /**
