@@ -83,8 +83,22 @@
         </div>
     </li>
 
-    {{-- Brands --}}
+    {{-- Base --}}
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#brandCollapse" aria-expanded="true" aria-controls="brandCollapse">
+          <i class="fas fa-table"></i>
+          <span>Base</span>
+        </a>
+        <div id="brandCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Container Options:</h6>
+            <a class="collapse-item" href="{{route('brand.index')}}">Base</a>
+            <a class="collapse-item" href="{{route('brand.create')}}">Add Base</a>
+          </div>
+        </div>
+    </li>
+
+    <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#brandCollapse" aria-expanded="true" aria-controls="brandCollapse">
           <i class="fas fa-table"></i>
           <span>Brands</span>
@@ -96,7 +110,7 @@
             <a class="collapse-item" href="{{route('brand.create')}}">Add Brand</a>
           </div>
         </div>
-    </li>
+    </li> -->
 
     {{-- Shipping --}}
     <li class="nav-item">
