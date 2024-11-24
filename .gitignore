@@ -2,8 +2,6 @@
 
 
 /vendor
-
-!/storage/app/public
 .env.backup
 .phpunit.result.cache
 Homestead.json
