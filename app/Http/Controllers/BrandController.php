@@ -72,11 +72,10 @@ class BrandController extends Controller
 
         $base = Base::create($data);
 
-        if ($base) {
-            return response()->json(['success' => 'Record added successfully!']);
-        } else {
-            return response()->json(['error' => 'Failed to add record.'], 500);
+        if($base) {
+            return redirect()->route('brand.index');
         }
+
     }
 
     /**
