@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Wishlist;
 use App\Models\Cart;
+use App\Models\Base;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use GuzzleHttp\Client;
 use Helper;
@@ -173,17 +175,58 @@ class CartController extends Controller
         ]);
         $rlt = $response->getBody()->getContents();
         $rlt = json_decode($rlt, true);
+        $rlt = $rlt[0];
         if($rlt === []) {
             return response()->json([
                 'status' => false, // true or false
                 'msg' => "Enter valid code",
             ]);
         } else {
+            $bases = Base::all();
+            if($bases) {
+                $minDis = 9999999999;
+                $depot = '';
+                $destination = $rlt['display_name'];
+                $shippingPrice = 50.00;
+                foreach($bases as $base) {
+                    $dis = $this->calculateDistance($base['latitude'], $base['longitude'], $rlt['lat'], $rlt['lon']);
+                    Log::info('DISTANCE: ', ['dis' => $dis]);
+                    if($minDis > $dis) {
+                        $depot = $base['cityname'];
+                        $minDis = $dis;
+                    }
+                }
+                if($minDis > 70) {
+                    $shippingPrice = $minDis;
+                }
+                $data = [
+                    'des' => $destination,
+                    'depot' => $depot,
+                    'dis' => $minDis,
+                    'shippingPrice' => $shippingPrice
+                ];
+            }
             return response()->json([
                 'status' => true, // true or false
-                'msg' => $rlt,
+                'msg' => $data,
             ]);
         }
+    }
+
+    public function calculateDistance($lat1, $lon1, $lat2, $lon2)
+    {
+        $earthRadius = 3958.8; // Radius of the Earth in miles
+
+        $latDiff = deg2rad($lat2 - $lat1);
+        $lonDiff = deg2rad($lon2 - $lon1);
+
+        $a = sin($latDiff / 2) * sin($latDiff / 2) +
+             cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+             sin($lonDiff / 2) * sin($lonDiff / 2);
+
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+        return $earthRadius * $c; // Distance in miles
     }
 
     // public function addToCart(Request $request){

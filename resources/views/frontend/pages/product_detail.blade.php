@@ -128,20 +128,33 @@
 											<!--/ End Size -->
 											<!-- Product Buy -->
 											<div class="product-buy">
-												<form action="{{route('single-add-to-cart')}}" method="POST">
+												<form action="{{route('single-add-to-cart')}}" method="POST" id="add-form" class="dis-init">
 													@csrf 
 													<div class="row p-3 w-75">
+														<input type="hidden" id="zip-shipping">
 														<div class="col-12">
 															From <b id="zip-start">LA, CA, USA</b>
 														</div>
+														<div class="divider"></div>
 														<div class="col-12 text-end">
 															To <b id="zip-end">90210, Los Angeles, Los Angeles County, California, United States</b>
 														</div>
-														<p class="description"></p>
+														<div class="divider"></div>
 														<div class="col-12 d-flex justify-content-between">
-															<p>Distance: </p><b>31 mile</b>
-															<p>Distance: </p><b>31 mile</b>
-															<p>Distance: </p><b>31 mile</b>
+															<p>Distance: </p><b id="zip-distance"></b>
+														</div>
+														<div class="col-12 d-flex justify-content-between">
+															<p>Container(<span id="container-qty"></span> X <span>${{$product_detail['price']}}</span>): </p><b id="zip-container"></b>
+														</div>
+														<div class="col-12 d-flex justify-content-between">
+															<p>Product discount: </p><b style="color: green;" id="zip-discount"></b>
+														</div>
+														<div class="col-12 d-flex justify-content-between">
+															<p>Shipping Price: </p><b id="zip-ship">31 mile</b>
+														</div>
+														<div class="divider"></div>
+														<div class="col-12 d-flex justify-content-between">
+															<p>Total Price: </p><b id="zip-total">31 mile</b>
 														</div>
 													</div>
 													<div class="quantity">
@@ -558,9 +571,11 @@
 
 	<script>
 		var zipCode = '';
+		var pricePerContainer = @json($product_detail['price']);
+		pricePerContainer = parseFloat(pricePerContainer).toFixed(2);
+		var discountPerContainer = @json($product_detail['discount']);
 		$('#zip-button').click(function() {
 			zipCode = $('#zip-input').val();
-			console.log(zipCode);
 			$.ajax({
                 url:"{{route('fetch-location')}}",
                 type:"POST",
@@ -571,24 +586,42 @@
                 success:function(response){
 					$('#zip-input').removeClass('is-err');
 					$('#zip-input-err').addClass('err-init');
-                    console.log(response);
+					$('#add-form').removeClass('dis-init');
 					if(typeof(response)!='object'){
 						response=$.parseJSON(response);
 					}
 					if(response.status){
 						console.log(response.msg);
+						var data = response.msg;
+						var distance = parseFloat(data['dis']).toFixed(2);
+						var shippingPrice = parseFloat(data.shippingPrice).toFixed(2);
+						var currentQty = $('#quantity').val();
+						var containerPrice = currentQty * pricePerContainer;
+						var containerDiscount = currentQty * discountPerContainer * pricePerContainer / 100;
+						var totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
+						
+						$('#zip-shipping').val(shippingPrice);
+						$('#zip-start').text(data.depot);
+						$('#zip-end').text(data.des);
+						$('#zip-distance').text(distance + 'miles');
+						$('#container-qty').text(currentQty);
+						$('#zip-container').text('$' + containerPrice);
+						$('#zip-discount').text('$' + containerDiscount);
+						$('#zip-ship').text('$' + shippingPrice);
+						$('#zip-total').text('$' + totalPrice);
 					}
 					else{
 						$('#zip-input').addClass('is-err');
 						$('#zip-input-err').removeClass('err-init');
+						$('#add-form').addClass('dis-init');
                     }
                 },
 				error: function(xhr, status, error) {
 					$('#zip-input').addClass('is-err');
 					$('#zip-input-err').removeClass('err-init');
+					$('#add-form').addClass('dis-init');
 					// swal('Error', 'Invalid Zip Code', 'error');
 				}
-
             })
 		})
 	</script>

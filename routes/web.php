@@ -36,7 +36,7 @@ use App\Http\Controllers\MessageController;
         request()->session()->flash('success', 'Successfully cache cleared.');
         return redirect()->back();
     })->name('cache.clear');
-
+    
 
     // STORAGE LINKED ROUTE
     Route::get('storage-link',[AdminController::class,'storageLink'])->name('storage.link');

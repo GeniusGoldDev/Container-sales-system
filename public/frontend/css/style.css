@@ -4921,11 +4921,17 @@ Version:1.0
 .is-err {
 	border-color: red !important;
 }
-.err-init {
+.err-init, .dis-init {
 	display: none;
 }
 .err {
 	color: red !important;
+}
+.divider {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eee;
+	width: 100%;
 }
 /*=============================
 	End Footer CSS
