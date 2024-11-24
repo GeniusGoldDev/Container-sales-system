@@ -3,9 +3,11 @@
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Facades\Artisan;
     use App\Http\Controllers\AdminController;
-    use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\FrontendController;
     use App\Http\Controllers\Auth\LoginController;
-    use App\Http\Controllers\MessageController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\MessageController;
     use App\Http\Controllers\CartController;
     use App\Http\Controllers\WishlistController;
     use App\Http\Controllers\OrderController;
@@ -133,6 +135,9 @@
         Route::resource('banner', 'BannerController');
         // Brand
         Route::resource('brand', 'BrandController');
+
+        Route::get('brand.getLocation', [BrandController::class, 'getLocation'])->name('brand.getLocation');
+
         // Profile
         Route::get('/profile', [AdminController::class, 'profile'])->name('admin-profile');
         Route::post('/profile/{id}', [AdminController::class, 'profileUpdate'])->name('profile-update');
