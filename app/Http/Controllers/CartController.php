@@ -7,12 +7,17 @@ use App\Models\Product;
 use App\Models\Wishlist;
 use App\Models\Cart;
 use Illuminate\Support\Str;
+use GuzzleHttp\Client;
 use Helper;
 class CartController extends Controller
 {
     protected $product=null;
+    protected $client;
     public function __construct(Product $product){
         $this->product=$product;
+        $this->client = new Client([
+            'base_uri' => 'https://nominatim.openstreetmap.org/',
+        ]);
     }
 
     public function addToCart(Request $request){
@@ -147,6 +152,38 @@ class CartController extends Controller
         }else{
             return back()->with('Cart Invalid!');
         }    
+    }
+
+    public function fetchLocation(Request $request) {
+        $request->validate([
+            'zipCode'      =>  'required',
+        ]);
+        
+        $country = 'US';
+        $postalCode = $request->zipCode;
+        $response = $this->client->get('search', [
+            'query' => [
+                'postalcode' => $postalCode,
+                'country'    => $country,
+                'format'     => 'json',
+            ],
+            'headers' => [
+                'User-Agent' => 'Container' // Ensure this is specific to your app
+            ]
+        ]);
+        $rlt = $response->getBody()->getContents();
+        $rlt = json_decode($rlt, true);
+        if($rlt === []) {
+            return response()->json([
+                'status' => false, // true or false
+                'msg' => "Enter valid code",
+            ]);
+        } else {
+            return response()->json([
+                'status' => true, // true or false
+                'msg' => $rlt,
+            ]);
+        }
     }
 
     // public function addToCart(Request $request){

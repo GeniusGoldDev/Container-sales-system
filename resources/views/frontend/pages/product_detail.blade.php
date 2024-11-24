@@ -85,7 +85,16 @@
                                                     $after_discount=($product_detail->price-(($product_detail->price*$product_detail->discount)/100));
                                                 @endphp
 												<p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>${{number_format($product_detail->price,2)}}</s> </p>
-												<p class="description">{!!($product_detail->summary)!!}</p>
+												<p class="description">{!!($product_detail->summary)!!} 
+												</p>
+												<div class="form-group">
+													<div style="float: left; margin-bottom: 0.75rem;">
+														<input class="custom-input" id="zip-input" type="text" placeholder="Enter your zip code">
+														<div class="err err-init" id="zip-input-err">Invalid Zip Code</div>
+													</div>
+													<button class="btn custom-btn" id='zip-button'>Confirm</button>
+												</div>
+												
 											</div>
 											<!--/ End Description -->
 											<!-- Color -->
@@ -100,6 +109,7 @@
 											</div> --}}
 											<!--/ End Color -->
 											<!-- Size -->
+											{{--
 											@if($product_detail->size)
 												<div class="size mt-4">
 													<h4>Size</h4>
@@ -114,11 +124,26 @@
 													</ul>
 												</div>
 											@endif
+											--}}
 											<!--/ End Size -->
 											<!-- Product Buy -->
 											<div class="product-buy">
 												<form action="{{route('single-add-to-cart')}}" method="POST">
 													@csrf 
+													<div class="row p-3 w-75">
+														<div class="col-12">
+															From <b id="zip-start">LA, CA, USA</b>
+														</div>
+														<div class="col-12 text-end">
+															To <b id="zip-end">90210, Los Angeles, Los Angeles County, California, United States</b>
+														</div>
+														<p class="description"></p>
+														<div class="col-12 d-flex justify-content-between">
+															<p>Distance: </p><b>31 mile</b>
+															<p>Distance: </p><b>31 mile</b>
+															<p>Distance: </p><b>31 mile</b>
+														</div>
+													</div>
 													<div class="quantity">
 														<h6>Quantity :</h6>
 														<!-- Input Order -->
@@ -530,6 +555,43 @@
 @endpush
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+	<script>
+		var zipCode = '';
+		$('#zip-button').click(function() {
+			zipCode = $('#zip-input').val();
+			console.log(zipCode);
+			$.ajax({
+                url:"{{route('fetch-location')}}",
+                type:"POST",
+                data:{
+                    _token:"{{csrf_token()}}",
+                    zipCode:zipCode,
+                },
+                success:function(response){
+					$('#zip-input').removeClass('is-err');
+					$('#zip-input-err').addClass('err-init');
+                    console.log(response);
+					if(typeof(response)!='object'){
+						response=$.parseJSON(response);
+					}
+					if(response.status){
+						console.log(response.msg);
+					}
+					else{
+						$('#zip-input').addClass('is-err');
+						$('#zip-input-err').removeClass('err-init');
+                    }
+                },
+				error: function(xhr, status, error) {
+					$('#zip-input').addClass('is-err');
+					$('#zip-input-err').removeClass('err-init');
+					// swal('Error', 'Invalid Zip Code', 'error');
+				}
+
+            })
+		})
+	</script>
 
     {{-- <script>
         $('.cart').click(function(){

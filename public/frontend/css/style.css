@@ -4907,6 +4907,26 @@ Version:1.0
 	color:#fff;
 	text-decoration:underline;
 }
+.custom-btn {
+	height: 45px;
+}
+.custom-input {
+	height: 45px;
+	line-height: 45px;
+	padding: 0px 20px !important;
+	color: #333 !important;
+	border-radius: 0px;
+	font-weight: 400 !important;
+}
+.is-err {
+	border-color: red !important;
+}
+.err-init {
+	display: none;
+}
+.err {
+	color: red !important;
+}
 /*=============================
 	End Footer CSS
 ===============================*/

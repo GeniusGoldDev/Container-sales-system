@@ -76,6 +76,8 @@
         return view('frontend.pages.cart');
     })->name('cart');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('user');
+// Location
+    Route::post('/fetch-location', [CartController::class, 'fetchLocation'])->name('fetch-location');
 // Wishlist
     Route::get('/wishlist', function () {
         return view('frontend.pages.wishlist');
