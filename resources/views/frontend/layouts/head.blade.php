@@ -44,6 +44,15 @@
     position: relative;
     }
 
+    .header_topbar {
+        background-color: #3131cf !important;
+    }
+    .top-left ul li {
+        color: white !important;
+    }
+    .header.shop .list-main li a {
+        color: white !important;
+    }
     .dropdown-submenu>a:after {
     content: "\f0da";
     float: right;
