@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title','E-SHOP || Banner Create'); ?>
 
 <?php $__env->startSection('main-content'); ?>
@@ -62,7 +60,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
@@ -108,4 +106,5 @@ unset($__errorArgs, $__bag); ?>
     });
 </script>
 <?php $__env->stopPush(); ?>
+
 <?php echo $__env->make('backend.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\work\study\Complete-Ecommerce-in-laravel-10\resources\views/backend/banner/create.blade.php ENDPATH**/ ?>
