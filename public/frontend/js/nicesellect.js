@@ -112,6 +112,7 @@ $('.btn-number').click(function(e){
     containerPrice = parseFloat(containerPrice).toFixed(2) / currentVal;
     var discount = $('#zip-discount').text().slice(1);
     discount = parseFloat(discount).toFixed(2) / currentVal;
+    discount = discount.toFixed(2);
     var shippingPrice = parseFloat($('#zip-shipping').val()).toFixed(2);
     
     if (!isNaN(currentVal)) {
@@ -122,6 +123,8 @@ $('.btn-number').click(function(e){
                 var currentContainerPrice = containerPrice * (currentVal-1);
                 var currentDiscount = discount * (currentVal-1);
                 var totalPrice = parseFloat(currentContainerPrice) - parseFloat(currentDiscount) + parseFloat(shippingPrice);
+                totalPrice = totalPrice.toFixed(2);
+                currentDiscount = currentDiscount.toFixed(2);
                 $('#zip-container').text('$' + currentContainerPrice);
                 $('#zip-discount').text('$' + currentDiscount);
                 $('#zip-total').text('$' + totalPrice);
@@ -137,6 +140,8 @@ $('.btn-number').click(function(e){
                 var currentContainerPrice = containerPrice * (currentVal+1);
                 var currentDiscount = discount * (currentVal+1);
                 var totalPrice = parseFloat(currentContainerPrice) - parseFloat(currentDiscount) + parseFloat(shippingPrice);
+                totalPrice = totalPrice.toFixed(2);
+                currentDiscount = currentDiscount.toFixed(2);
                 $('#zip-container').text('$' + currentContainerPrice);
                 $('#zip-discount').text('$' + currentDiscount);
                 $('#zip-total').text('$' + totalPrice);

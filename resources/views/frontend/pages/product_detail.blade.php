@@ -597,11 +597,9 @@
 						var shippingPrice = parseFloat(data.shippingPrice).toFixed(2);
 						var currentQty = $('#quantity').val();
 						var containerPrice = currentQty * pricePerContainer;
-						var containerDiscount = parseFloat(currentQty * discountPerContainer * pricePerContainer / 100).toFixed(2);
+						var containerDiscount = currentQty * discountPerContainer * pricePerContainer / 100;
 						var totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
-                        console.log(didi);
-                        var didi = distance
-
+						
 						$('#zip-shipping').val(shippingPrice);
 						$('#zip-start').text(data.depot);
 						$('#zip-end').text(data.des);
