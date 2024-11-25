@@ -37,7 +37,7 @@
         </div>
     </div>
     <!-- End Topbar -->
-    <div class="middle-inner">
+    <div id="middle-inner" class="middle-inner">
         <div class="container">
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-12">
@@ -217,3 +217,9 @@
     </div>
     <!--/ End Header Inner -->
 </header>
+
+<style>
+    #middle-inner {
+        background-image: url('/images/flag.png');
+    }
+</style>

@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title','E-SHOP || Banner Edit'); ?>
 <?php $__env->startSection('main-content'); ?>
 
@@ -6,7 +5,7 @@
     <h5 class="card-header">Edit Banner</h5>
     <div class="card-body">
       <form method="post" action="<?php echo e(route('banner.update',$banner->id)); ?>">
-        <?php echo csrf_field(); ?> 
+        <?php echo csrf_field(); ?>
         <?php echo method_field('PATCH'); ?>
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
@@ -60,7 +59,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
@@ -105,4 +104,5 @@ unset($__errorArgs, $__bag); ?>
     });
 </script>
 <?php $__env->stopPush(); ?>
+
 <?php echo $__env->make('backend.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\work\study\Complete-Ecommerce-in-laravel-10\resources\views/backend/banner/edit.blade.php ENDPATH**/ ?>
