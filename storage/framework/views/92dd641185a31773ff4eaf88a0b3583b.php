@@ -15,7 +15,7 @@
 								$settings=DB::table('settings')->get();
 							?>
 							<p class="text"><?php $__currentLoopData = $settings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php echo e($data->short_des); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></p>
-							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">your_number</a></span></p>
+							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+1 (774) 899-4671</a></span></p>
 						</div>
 						<!-- End Single Widget -->
 					</div>

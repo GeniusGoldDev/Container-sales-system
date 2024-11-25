@@ -22,9 +22,6 @@
               <th>Category</th>
               <th>Price</th>
               <th>Discount</th>
-              <th>Size</th>
-              <th>Condition</th>
-              <th>Brand</th>
               <th>Stock</th>
               <th>Photo</th>
               <th>Status</th>
@@ -37,9 +34,6 @@
               <th>Category</th>
               <th>Price</th>
               <th>Discount</th>
-              <th>Size</th>
-              <th>Condition</th>
-              <th>Brand</th>
               <th>Stock</th>
               <th>Photo</th>
               <th>Status</th>
@@ -61,12 +55,8 @@
                           {{$product->sub_cat_info->title ?? ''}}
                       </sub>
                     </td>
-                    <td>{{(($product->is_featured==1)? 'Yes': 'No')}}</td>
-                    <td>Rs. {{$product->price}} /-</td>
+                    <td>US {{$product->price}}</td>
                     <td>  {{$product->discount}}% OFF</td>
-                    <td>{{$product->size}}</td>
-                    <td>{{$product->condition}}</td>
-                    <td> {{ucfirst($product->brand->title)}}</td>
                     <td>
                       @if($product->stock>0)
                       <span class="badge badge-primary">{{$product->stock}}</span>
