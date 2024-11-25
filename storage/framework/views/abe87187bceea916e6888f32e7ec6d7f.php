@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title','E-SHOP || Banner Page'); ?>
 <?php $__env->startSection('main-content'); ?>
  <!-- DataTales Example -->
@@ -18,9 +17,7 @@
         <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
               <th>Title</th>
-              <th>Slug</th>
               <th>Photo</th>
               <th>Status</th>
               <th>Action</th>
@@ -28,20 +25,16 @@
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
               <th>Title</th>
-              <th>Slug</th>
               <th>Photo</th>
               <th>Status</th>
               <th>Action</th>
               </tr>
           </tfoot>
           <tbody>
-            <?php $__currentLoopData = $banners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $banner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>   
+            <?php $__currentLoopData = $banners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $banner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <td><?php echo e($banner->id); ?></td>
                     <td><?php echo e($banner->title); ?></td>
-                    <td><?php echo e($banner->slug); ?></td>
                     <td>
                         <?php if($banner->photo): ?>
                             <img src="<?php echo e($banner->photo); ?>" class="img-fluid zoom" style="max-width:80px" alt="<?php echo e($banner->photo); ?>">
@@ -59,14 +52,14 @@
                     <td>
                         <a href="<?php echo e(route('banner.edit',$banner->id)); ?>" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                         <form method="POST" action="<?php echo e(route('banner.destroy',[$banner->id])); ?>">
-                          <?php echo csrf_field(); ?> 
+                          <?php echo csrf_field(); ?>
                           <?php echo method_field('delete'); ?>
                               <button class="btn btn-danger btn-sm dltBtn" data-id=<?php echo e($banner->id); ?> style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </td>
                     
                     
-                </tr>  
+                </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </tbody>
         </table>
@@ -106,7 +99,7 @@
   <!-- Page level custom scripts -->
   <script src="<?php echo e(asset('backend/js/demo/datatables-demo.js')); ?>"></script>
   <script>
-      
+
       $('#banner-dataTable').DataTable( {
             "columnDefs":[
                 {
@@ -119,7 +112,7 @@
         // Sweet alert
 
         function deleteData(id){
-            
+
         }
   </script>
   <script>
@@ -152,4 +145,5 @@
       })
   </script>
 <?php $__env->stopPush(); ?>
+
 <?php echo $__env->make('backend.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\work\study\Complete-Ecommerce-in-laravel-10\resources\views/backend/banner/index.blade.php ENDPATH**/ ?>
