@@ -171,15 +171,6 @@
                                                                 <span class="price-dec"><?php echo e($product->discount); ?> % Off</span>
                                                     <?php endif; ?>
                                                 </a>
-                                                <div class="button-head">
-                                                    <div class="product-action">
-                                                        <a data-toggle="modal" data-target="#<?php echo e($product->id); ?>" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                        <a title="Wishlist" href="<?php echo e(route('add-to-wishlist',$product->slug)); ?>" class="wishlist" data-id="<?php echo e($product->id); ?>"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-                                                    </div>
-                                                    <div class="product-action-2">
-                                                        <a title="Add to cart" href="<?php echo e(route('add-to-cart',$product->slug)); ?>">Add to cart</a>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <div class="product-content">
                                                 <h3><a href="<?php echo e(route('product-detail',$product->slug)); ?>"><?php echo e($product->title); ?></a></h3>
@@ -363,6 +354,9 @@
         padding:8px 16px;
         margin-top:10px;
         color: white;
+    }
+    .product-img a img {
+        height: 300px !important;
     }
 </style>
 <?php $__env->stopPush(); ?>

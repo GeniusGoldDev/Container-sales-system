@@ -221,7 +221,6 @@
 <style>
     #middle-inner {
         background-image: url('/images/flag.png');
-        /* background-color: red; */
     }
 </style>
 <?php /**PATH E:\work\study\Complete-Ecommerce-in-laravel-10\resources\views/frontend/layouts/header.blade.php ENDPATH**/ ?>

@@ -177,15 +177,6 @@
                                                                 <span class="price-dec">{{$product->discount}} % Off</span>
                                                     @endif
                                                 </a>
-                                                <div class="button-head">
-                                                    <div class="product-action">
-                                                        <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                        <a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" class="wishlist" data-id="{{$product->id}}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-                                                    </div>
-                                                    <div class="product-action-2">
-                                                        <a title="Add to cart" href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <div class="product-content">
                                                 <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
@@ -380,6 +371,9 @@
         padding:8px 16px;
         margin-top:10px;
         color: white;
+    }
+    .product-img a img {
+        height: 300px !important;
     }
 </style>
 @endpush
