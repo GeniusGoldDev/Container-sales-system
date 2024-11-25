@@ -598,8 +598,9 @@
 						var currentQty = $('#quantity').val();
 						var containerPrice = currentQty * pricePerContainer;
 						var containerDiscount = currentQty * discountPerContainer * pricePerContainer / 100;
+						containerDiscount = containerDiscount.toFixed(2);
 						var totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
-						
+						var totalPrice = totalPrice.toFixed(2);
 						$('#zip-shipping').val(shippingPrice);
 						$('#zip-start').text(data.depot);
 						$('#zip-end').text(data.des);
