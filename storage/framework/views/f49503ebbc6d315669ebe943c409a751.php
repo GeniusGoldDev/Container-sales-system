@@ -54,7 +54,7 @@
                                 <?php endif; ?>
                                 <div class="content">
                                     <h3><?php echo e($cat->title); ?></h3>
-                                        <a href="<?php echo e(route('product-cat',$cat->slug)); ?>">Discover Now</a>
+                                        <a style="color: white;font-size:25px" href="<?php echo e(route('product-cat',$cat->slug)); ?>">Discover Now</a>
                                 </div>
                             </div>
                         </div>
@@ -128,15 +128,7 @@
 
 
                                             </a>
-                                            <div class="button-head">
-                                                <div class="product-action">
-                                                    <a data-toggle="modal" data-target="#<?php echo e($product->id); ?>" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                    <a title="Wishlist" href="<?php echo e(route('add-to-wishlist',$product->slug)); ?>" ><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-                                                </div>
-                                                <div class="product-action-2">
-                                                    <a title="Add to cart" href="<?php echo e(route('add-to-cart',$product->slug)); ?>">Add to cart</a>
-                                                </div>
-                                            </div>
+
                                         </div>
                                         <div class="product-content">
                                             <h3><a href="<?php echo e(route('product-detail',$product->slug)); ?>"><?php echo e($product->title); ?></a></h3>
@@ -269,10 +261,6 @@
                                                 </div>
                                                 <!--/ End Input Order -->
                                             </div>
-                                            <div class="add-to-cart">
-                                                <button type="submit" class="btn">Add to cart</button>
-                                                <a href="<?php echo e(route('add-to-wishlist',$product->slug)); ?>" class="btn min"><i class="ti-heart"></i></a>
-                                            </div>
                                         </form>
                                         <div class="default-social">
                                         <!-- ShareThis BEGIN --><div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
@@ -293,6 +281,9 @@
     <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5f2e5abf393162001291e431&product=inline-share-buttons' async='async'></script>
     <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5f2e5abf393162001291e431&product=inline-share-buttons' async='async'></script>
     <style>
+        .single-product .product-img a img {
+            height: 200px !important;
+        }
         /* Banner Sliding */
         #Gslider .carousel-inner {
         background: #000000;

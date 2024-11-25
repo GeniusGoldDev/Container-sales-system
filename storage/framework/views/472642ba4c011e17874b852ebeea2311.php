@@ -20,30 +20,12 @@
               <th>Category</th>
               <th>Price</th>
               <th>Discount</th>
-              <th>Size</th>
-              <th>Condition</th>
-              <th>Brand</th>
               <th>Stock</th>
               <th>Photo</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Discount</th>
-              <th>Size</th>
-              <th>Condition</th>
-              <th>Brand</th>
-              <th>Stock</th>
-              <th>Photo</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </tfoot>
           <tbody>
 
             <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -61,12 +43,8 @@
 
                       </sub>
                     </td>
-                    <td><?php echo e((($product->is_featured==1)? 'Yes': 'No')); ?></td>
-                    <td>Rs. <?php echo e($product->price); ?> /-</td>
+                    <td>US <?php echo e($product->price); ?></td>
                     <td>  <?php echo e($product->discount); ?>% OFF</td>
-                    <td><?php echo e($product->size); ?></td>
-                    <td><?php echo e($product->condition); ?></td>
-                    <td> <?php echo e(ucfirst($product->brand->title)); ?></td>
                     <td>
                       <?php if($product->stock>0): ?>
                       <span class="badge badge-primary"><?php echo e($product->stock); ?></span>
@@ -78,9 +56,8 @@
                         <?php if($product->photo): ?>
                             <?php
                               $photo=explode(',',$product->photo);
-                              // dd($photo);
                             ?>
-                            <img src="<?php echo e($photo[0]); ?>" class="img-fluid zoom" style="max-width:80px" alt="<?php echo e($product->photo); ?>">
+                            <img src="<?php echo e($photo[0]); ?>" class="img-fluid zoom" style="max-width:80px;" alt="<?php echo e($product->photo); ?>">
                         <?php else: ?>
                             <img src="<?php echo e(asset('backend/img/thumbnail-default.jpg')); ?>" class="img-fluid" style="max-width:80px" alt="avatar.png">
                         <?php endif; ?>
@@ -125,7 +102,7 @@
       }
 
       .zoom:hover {
-        transform: scale(5);
+        transform: scale(1.3);
       }
   </style>
 <?php $__env->stopPush(); ?>

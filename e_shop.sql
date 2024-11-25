@@ -31,15 +31,14 @@ CREATE TABLE `banners` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `banners_slug_unique` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `banners` */
 
 insert  into `banners`(`id`,`title`,`slug`,`photo`,`description`,`status`,`created_at`,`updated_at`) values 
-(1,'Lorem Ipsum is','lorem-ipsum-is','/storage/photos/1/Banner/banner-01.jpg','<h2><span style=\"font-weight: bold; color: rgb(99, 99, 99);\">Up to 10%</span></h2>','inactive','2020-08-13 21:47:38','2024-11-23 02:04:07'),
-(2,'Lorem Ipsum','lorem-ipsum','/storage/photos/1/Banner/banner-07.jpg','<p>Up to 90%</p>','inactive','2020-08-13 21:50:23','2024-11-23 02:04:14'),
-(4,'Banner','banner','/storage/photos/1/Banner/banner-06.jpg','<h2><span style=\"color: rgb(156, 0, 255); font-size: 2rem; font-weight: bold;\">Up to 40%</span><br></h2><h2><span style=\"color: rgb(156, 0, 255);\"></span></h2>','inactive','2020-08-17 16:46:59','2024-11-23 02:04:27'),
-(5,'banner','banner-2411230516-240','/storage/photos/1/Banner/banner.png','<p>&nbsp;this banner is</p>','active','2024-11-23 02:05:16','2024-11-23 02:05:16');
+(7,'Welcome','welcome','http://127.0.0.1:8000/storage/photos/1/Banner/chuttersnap-sZ_w4X6N_Kw-unsplash.jpg','<p>&nbsp;</p>','active','2024-11-25 09:20:54','2024-11-25 09:20:54'),
+(8,'Kindly Service','kindly-service','http://127.0.0.1:8000/storage/photos/1/Banner/premium_photo-1664910387869-3e090a2a3d5f.png','<p>&nbsp;</p>','active','2024-11-25 09:30:19','2024-11-25 09:30:19'),
+(10,'Our future','our-future','http://127.0.0.1:8000/storage/photos/1/Banner/angela-lo-dadPw15YhFc-unsplash.jpg','<p>&nbsp;</p>','active','2024-11-25 10:10:26','2024-11-25 10:10:26');
 
 /*Table structure for table `base` */
 
@@ -54,12 +53,14 @@ CREATE TABLE `base` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `base` */
 
 insert  into `base`(`id`,`cityname`,`latitude`,`longitude`,`status`,`created_at`,`updated_at`) values 
-(1,'Dalas',1.4534500,103.8667787,'active','2024-11-24 08:11:10','2024-11-24 08:11:10');
+(7,'49034, Climax, Climax Township, Kalamazoo County, Michigan, United States',42.2336615,-85.3372839,'active','2024-11-24 18:43:00','2024-11-24 18:43:00'),
+(8,'90210, Los Angeles, Los Angeles County, California, United States',34.0942923,-118.4114956,'active','2024-11-24 20:59:24','2024-11-24 20:59:24'),
+(9,'91604, Los Angeles, Los Angeles County, California, United States',34.1431258,-118.3884670,'active','2024-11-24 20:59:33','2024-11-24 20:59:33');
 
 /*Table structure for table `brands` */
 
@@ -100,12 +101,14 @@ CREATE TABLE `carts` (
   CONSTRAINT `carts_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE SET NULL,
   CONSTRAINT `carts_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
   CONSTRAINT `carts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `carts` */
 
 insert  into `carts`(`id`,`product_id`,`order_id`,`user_id`,`price`,`status`,`quantity`,`amount`,`created_at`,`updated_at`) values 
-(12,11,NULL,30,110.70,'new',1,110.70,'2024-11-23 12:48:05','2024-11-23 12:48:05');
+(12,11,NULL,30,110.70,'new',1,110.70,'2024-11-23 12:48:05','2024-11-23 12:48:05'),
+(13,11,NULL,31,110.70,'new',1,123.00,'2024-11-24 12:43:53','2024-11-24 12:43:53'),
+(16,11,6,1,110.70,'new',2,246.00,'2024-11-24 19:13:20','2024-11-24 19:14:52');
 
 /*Table structure for table `categories` */
 
@@ -193,14 +196,15 @@ CREATE TABLE `messages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `messages` */
 
 insert  into `messages`(`id`,`name`,`subject`,`email`,`photo`,`phone`,`message`,`read_at`,`created_at`,`updated_at`) values 
 (1,'Prajwal Rai','About price','prajwal.iar@gmail.com',NULL,'9807009999','Hello sir i am from kathmandu nepal.','2020-08-14 04:25:46','2020-08-14 04:00:01','2020-08-14 04:25:46'),
 (2,'Prajwal Rai','About Price','prajwal.iar@gmail.com',NULL,'9800099000','Hello i am Prajwal Rai','2020-08-17 23:04:15','2020-08-15 03:52:39','2020-08-17 23:04:16'),
-(3,'Prajwal Rai','lorem ipsum','prajwal.iar@gmail.com',NULL,'1200990009','hello sir sdfdfd dfdjf ;dfjd fd ldkfd','2024-11-23 01:29:05','2020-08-17 17:15:12','2024-11-23 01:29:05');
+(3,'Prajwal Rai','lorem ipsum','prajwal.iar@gmail.com',NULL,'1200990009','hello sir sdfdfd dfdjf ;dfjd fd ldkfd','2024-11-23 01:29:05','2020-08-17 17:15:12','2024-11-23 01:29:05'),
+(4,'vitalii','this is vitalii','gold005dev@gmail.com',NULL,'123123123','Ola\nThis is Viltalii','2024-11-24 15:26:53','2024-11-24 15:26:17','2024-11-24 15:26:53');
 
 /*Table structure for table `migrations` */
 
@@ -257,8 +261,11 @@ CREATE TABLE `notifications` (
 /*Data for the table `notifications` */
 
 insert  into `notifications`(`id`,`type`,`notifiable_type`,`notifiable_id`,`data`,`read_at`,`created_at`,`updated_at`) values 
+('1c836e1e-fe92-4bea-882b-7879fe17d201','App\\Notifications\\StatusNotification','App\\User',1,'{\"title\":\"New Product Rating!\",\"actionURL\":\"http:\\/\\/127.0.0.1:8000\\/product-detail\\/qwe\",\"fas\":\"fa-star\"}','2024-11-25 10:31:53','2024-11-25 10:31:32','2024-11-25 10:31:53'),
 ('5e91e603-024e-45c5-b22f-36931fef0d90','App\\Notifications\\StatusNotification','App\\User',1,'{\"title\":\"New Product Rating!\",\"actionURL\":\"http:\\/\\/localhost:8000\\/product-detail\\/white-sports-casual-t\",\"fas\":\"fa-star\"}','2024-11-23 09:42:26','2020-08-15 03:44:07','2024-11-23 09:42:26'),
-('a6ec5643-748c-4128-92e2-9a9f293f53b5','App\\Notifications\\StatusNotification','App\\User',1,'{\"title\":\"New order created\",\"actionURL\":\"http:\\/\\/localhost:8000\\/admin\\/order\\/5\",\"fas\":\"fa-file-alt\"}','2024-11-23 09:32:44','2020-08-17 17:17:03','2024-11-23 09:32:44');
+('75673199-795f-4006-b9f9-7a3797968c8e','App\\Notifications\\StatusNotification','App\\User',31,'{\"title\":\"New Product Rating!\",\"actionURL\":\"http:\\/\\/127.0.0.1:8000\\/product-detail\\/qwe\",\"fas\":\"fa-star\"}',NULL,'2024-11-25 10:31:32','2024-11-25 10:31:32'),
+('a6ec5643-748c-4128-92e2-9a9f293f53b5','App\\Notifications\\StatusNotification','App\\User',1,'{\"title\":\"New order created\",\"actionURL\":\"http:\\/\\/localhost:8000\\/admin\\/order\\/5\",\"fas\":\"fa-file-alt\"}','2024-11-23 09:32:44','2020-08-17 17:17:03','2024-11-23 09:32:44'),
+('b0401b31-4657-41ae-b444-4a18ba47f089','App\\Notifications\\StatusNotification','App\\User',1,'{\"title\":\"New order created\",\"actionURL\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/order\\/6\",\"fas\":\"fa-file-alt\"}','2024-11-24 19:16:02','2024-11-24 19:14:52','2024-11-24 19:16:02');
 
 /*Table structure for table `orders` */
 
@@ -292,7 +299,7 @@ CREATE TABLE `orders` (
   KEY `orders_shipping_id_foreign` (`shipping_id`),
   CONSTRAINT `orders_shipping_id_foreign` FOREIGN KEY (`shipping_id`) REFERENCES `shippings` (`id`) ON DELETE SET NULL,
   CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `orders` */
 
@@ -300,7 +307,8 @@ insert  into `orders`(`id`,`order_number`,`user_id`,`sub_total`,`shipping_id`,`c
 (1,'ORD-PMIQF5MYPK',3,14399.00,1,573.90,13925.10,6,'cod','unpaid','delivered','Prajwal','Rai','prajwal.iar@gmail.com','9800887778','NP','44600','Koteshwor','Kathmandu','2020-08-14 03:20:44','2020-08-14 05:37:37'),
 (2,'ORD-YFF8BF0YBK',2,1939.03,1,NULL,2039.03,1,'cod','unpaid','delivered','Sandhya','Rai','user@gmail.com','90000000990','NP',NULL,'Lalitpur',NULL,'2020-08-14 18:14:49','2020-08-14 18:15:19'),
 (3,'ORD-1CKWRWTTIK',3,200.00,1,NULL,300.00,1,'paypal','paid','process','Prajwal','Rai','prajwal.iar@gmail.com','9807009999','NP','44600','Kathmandu','Kadaghari','2020-08-15 02:40:49','2020-08-17 16:52:40'),
-(4,'ORD-HVO0KX0YHW',3,23660.00,3,150.00,23910.00,6,'paypal','paid','new','Prajwal','Rai','prajwal.iar@gmail.com','9800098878','NP','44600','Pokhara',NULL,'2020-08-15 03:54:52','2020-08-15 03:54:52');
+(4,'ORD-HVO0KX0YHW',3,23660.00,NULL,150.00,23910.00,6,'paypal','paid','new','Prajwal','Rai','prajwal.iar@gmail.com','9800098878','NP','44600','Pokhara',NULL,'2020-08-15 03:54:52','2020-08-15 03:54:52'),
+(6,'ORD-KGLK3QXOZA',1,246.00,NULL,NULL,246.00,2,'paypal','paid','new','asd','asd','asd@asd.com','12123123','DZ','123123','asdas','asdf','2024-11-24 19:14:51','2024-11-24 19:14:51');
 
 /*Table structure for table `password_resets` */
 
@@ -443,13 +451,14 @@ CREATE TABLE `product_reviews` (
   KEY `product_reviews_product_id_foreign` (`product_id`),
   CONSTRAINT `product_reviews_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE SET NULL,
   CONSTRAINT `product_reviews_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `product_reviews` */
 
 insert  into `product_reviews`(`id`,`user_id`,`product_id`,`rate`,`review`,`status`,`created_at`,`updated_at`) values 
 (1,3,NULL,5,'nice product','active','2020-08-15 03:44:05','2020-08-15 03:44:05'),
-(2,2,NULL,5,'nice','active','2020-08-17 17:08:14','2020-08-17 17:18:31');
+(2,2,NULL,5,'nice','active','2020-08-17 17:08:14','2020-08-17 17:18:31'),
+(3,1,15,5,'wonderful','active','2024-11-25 10:31:30','2024-11-25 10:31:30');
 
 /*Table structure for table `products` */
 
@@ -482,13 +491,15 @@ CREATE TABLE `products` (
   CONSTRAINT `products_brand_id_foreign` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`) ON DELETE SET NULL,
   CONSTRAINT `products_cat_id_foreign` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL,
   CONSTRAINT `products_child_cat_id_foreign` FOREIGN KEY (`child_cat_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `products` */
 
 insert  into `products`(`id`,`title`,`slug`,`summary`,`description`,`photo`,`stock`,`size`,`condition`,`status`,`price`,`discount`,`is_featured`,`cat_id`,`child_cat_id`,`brand_id`,`created_at`,`updated_at`) values 
-(11,'con1','con1','<p>this is con1</p>','<p>this is con1</p>','/storage/photos/1/container/avif_large_20ft_hapag_784e4f65ad.jpg',10,'XL','new','active',123.00,10.00,1,12,NULL,NULL,'2024-11-23 01:34:54','2024-11-23 01:34:54'),
-(12,'con2','con2','<p>this is con2</p>','<p>this con2 is</p>','/storage/photos/1/container/avif_large_20ft_hapag_d41a2fc032.jpg',10,'','new','active',220.00,10.00,1,12,NULL,NULL,'2024-11-23 02:32:03','2024-11-23 02:32:03');
+(11,'con1','con1','<p>this is con1</p>','<p>this is con1</p>','http://127.0.0.1:8000/storage/photos/1/container/premium_photo-1664910387869-3e090a2a3d5f.png',10,'','new','active',123.00,10.00,1,12,NULL,NULL,'2024-11-23 01:34:54','2024-11-25 08:20:10'),
+(12,'con2','con2','<p>this is con2</p>','<p>this con2 is</p>','/storage/photos/1/container/avif_large_20ft_hapag_d41a2fc032.jpg',10,'','new','active',220.00,10.00,1,12,NULL,NULL,'2024-11-23 02:32:03','2024-11-23 02:32:03'),
+(15,'qwe','qwe','<p>qwe</p>','<p>qwe</p>','http://127.0.0.1:8000/storage/photos/1/container/40fit-high.png,http://127.0.0.1:8000/storage/photos/1/container/40fit.png,http://127.0.0.1:8000/storage/photos/1/container/avif_large_20ft_hapag_d41a2fc032.jpg,http://127.0.0.1:8000/storage/photos/1/container/avif_large_20ft_hapag_784e4f65ad.jpg',23,'','default','active',234.00,23.00,1,13,NULL,NULL,'2024-11-24 13:56:38','2024-11-25 08:14:23'),
+(16,'con3','con3','<p>con3</p>','<p>this is con3&nbsp;<span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span><span style=\"font-size: 1rem;\">this is con3&nbsp;</span></p>','http://127.0.0.1:8000/storage/photos/1/container/40fit-high.png,http://127.0.0.1:8000/storage/photos/1/container/40fit.png',12,'','default','active',800.00,7.00,1,14,NULL,NULL,'2024-11-24 14:48:36','2024-11-25 08:12:38');
 
 /*Table structure for table `settings` */
 
@@ -511,7 +522,7 @@ CREATE TABLE `settings` (
 /*Data for the table `settings` */
 
 insert  into `settings`(`id`,`description`,`short_des`,`logo`,`photo`,`address`,`phone`,`email`,`created_at`,`updated_at`) values 
-(1,'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis unde sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis unde omnis iste natus error sit voluptatem Excepteu\r\n\r\n                            sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspi deserunt mollit anim id est laborum. sed ut perspi.','Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.','/storage/photos/1/logo.png','/storage/photos/1/blog3.jpg','NO. 342 - London Oxford Street, 012 United Kingdom','+060 (800) 801-582','eshop@gmail.com',NULL,'2020-08-13 21:49:09');
+(1,'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis unde sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis unde omnis iste natus error sit voluptatem Excepteu\r\n\r\n                            sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspiciatis Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. sed ut perspi deserunt mollit anim id est laborum. sed ut perspi.','Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.','/storage/photos/1/logo.png','/storage/photos/1/blog3.jpg','NO. 342 - London Oxford Street, 012 United Kingdom','','',NULL,'2020-08-13 21:49:09');
 
 /*Table structure for table `shippings` */
 
@@ -525,15 +536,13 @@ CREATE TABLE `shippings` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `shippings` */
 
 insert  into `shippings`(`id`,`type`,`price`,`status`,`created_at`,`updated_at`) values 
-(1,'Kahtmandu',100.00,'active','2020-08-14 00:22:17','2020-08-14 00:22:17'),
-(2,'Out of valley',300.00,'active','2020-08-14 00:22:41','2020-08-14 00:22:41'),
-(3,'Pokhara',400.00,'active','2020-08-15 02:54:04','2020-08-15 02:54:04'),
-(4,'Dharan',400.00,'active','2020-08-17 16:50:48','2020-08-17 16:50:48');
+(1,'Fixed',200.00,'active','2020-08-14 00:22:17','2024-11-24 21:24:35'),
+(5,'Per_mile',3.00,'active','2024-11-24 21:24:57','2024-11-24 21:40:00');
 
 /*Table structure for table `users` */
 
@@ -560,7 +569,7 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`name`,`email`,`email_verified_at`,`password`,`photo`,`role`,`provider`,`provider_id`,`status`,`remember_token`,`created_at`,`updated_at`) values 
-(1,'Prajwal Rai','admin@gmail.com',NULL,'$2y$10$GOGIJdzJydYJ5nAZ42iZNO3IL1fdvXoSPdUOH3Ajy5hRmi0xBmTzm','/storage/photos/1/users/user1.jpg','admin',NULL,NULL,'active','Zrz60s2QisM8DncbXyeto1il0NOrXTv377ekrcvyGLWput1oojNcoL0tDJGx',NULL,'2020-08-15 02:47:13'),
+(1,'Prajwal Rai','admin@gmail.com',NULL,'$2y$10$GOGIJdzJydYJ5nAZ42iZNO3IL1fdvXoSPdUOH3Ajy5hRmi0xBmTzm','/storage/photos/1/users/user1.jpg','admin',NULL,NULL,'active','wBv1ZgbrmoU6kg7c1PJv0DpYZ89pY9OuypijeDb31VwQSb8stWcmcwNQU7WW',NULL,'2020-08-15 02:47:13'),
 (2,'User','user@gmail.com',NULL,'$2y$10$10jB2lupSfvAUfocjguzSeN95LkwgZJUM7aQBdb2Op7XzJ.BhNoHq','/storage/photos/1/users/user2.jpg','user',NULL,NULL,'active',NULL,NULL,'2020-08-15 03:30:07'),
 (3,'Prajwal Rai','prajwal.iar@gmail.com',NULL,'$2y$10$15ZVMgH040v4Ukf9KSAFiucPJcfDwmeRKCaguVJBXplTs93m48F1G','/storage/photos/1/users/user3.jpg','user',NULL,NULL,'active',NULL,'2020-08-11 00:20:58','2020-08-15 03:56:58'),
 (4,'Cynthia Beier','ernestina.wehner@example.net','2020-08-14 17:18:52','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',NULL,'user',NULL,NULL,'active','fzmQDfEoaP','2020-08-14 17:18:52','2020-08-14 17:18:52'),
