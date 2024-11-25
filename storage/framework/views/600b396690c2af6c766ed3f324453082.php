@@ -22,7 +22,7 @@
                                 <?php if(Auth::user()->role=='admin'): ?>
                                     <li><i class="ti-user"></i> <a href="<?php echo e(route('admin')); ?>"  target="_blank">Dashboard</a></li>
                                 <?php else: ?>
-                                    <li><i class="ti-user"></i> <a href="<?php echo e(route('user')); ?>"  target="_blank">Dashboard</a></li>
+
                                 <?php endif; ?>
                                 <li><i class="ti-power-off"></i> <a href="<?php echo e(route('user.logout')); ?>">Logout</a></li>
 
@@ -79,6 +79,29 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3 col-12">
+
+                    <div class="right-bar">
+                        <!-- Search Form -->
+                        <div class="sinlge-bar shopping">
+                            <!-- <div style="margin-left: 20px;">
+                                <p style="color: black;">
+                                    <?php if(auth()->guard()->check()): ?>
+                                    <?php if(Auth::user()->role=='admin'): ?>
+                                        <li><i class="ti-user"></i> <a href="<?php echo e(route('admin')); ?>"  target="_blank">Dashboard</a></li>
+                                    <?php else: ?>
+
+                                    <?php endif; ?>
+                                        <li><i class="ti-power-off"></i> <a href="<?php echo e(route('user.logout')); ?>">Logout</a></li>
+
+                                    <?php else: ?>
+                                        <li><i class="ti-power-off"></i><a href="<?php echo e(route('login.form')); ?>">Login /</a> <a href="<?php echo e(route('register.form')); ?>">Register</a></li>
+                                    <?php endif; ?>
+                                </p>
+                            </div> -->
+                        </div>
+
+                    </div>
+
                     <div class="right-bar">
                         <!-- Search Form -->
                         <div class="sinlge-bar shopping">

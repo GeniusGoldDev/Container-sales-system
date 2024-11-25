@@ -14,7 +14,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users=User::orderBy('id','ASC')->paginate(10);
+        $users=User::orderBy('id','ASC')->paginate();
         return view('backend.users.index')->with('users',$users);
     }
 
@@ -105,7 +105,7 @@ class UsersController extends Controller
         // dd($request->all());
         $data=$request->all();
         // dd($data);
-        
+
         $status=$user->fill($data)->save();
         if($status){
             request()->session()->flash('success','Successfully updated');

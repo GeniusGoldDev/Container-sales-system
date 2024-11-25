@@ -22,7 +22,7 @@
                                 @if(Auth::user()->role=='admin')
                                     <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">Dashboard</a></li>
                                 @else
-                                    <li><i class="ti-user"></i> <a href="{{route('user')}}"  target="_blank">Dashboard</a></li>
+
                                 @endif
                                 <li><i class="ti-power-off"></i> <a href="{{route('user.logout')}}">Logout</a></li>
 
@@ -79,6 +79,29 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3 col-12">
+
+                    <div class="right-bar">
+                        <!-- Search Form -->
+                        <div class="sinlge-bar shopping">
+                            <!-- <div style="margin-left: 20px;">
+                                <p style="color: black;">
+                                    @auth
+                                    @if(Auth::user()->role=='admin')
+                                        <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">Dashboard</a></li>
+                                    @else
+
+                                    @endif
+                                        <li><i class="ti-power-off"></i> <a href="{{route('user.logout')}}">Logout</a></li>
+
+                                    @else
+                                        <li><i class="ti-power-off"></i><a href="{{route('login.form')}}">Login /</a> <a href="{{route('register.form')}}">Register</a></li>
+                                    @endauth
+                                </p>
+                            </div> -->
+                        </div>
+
+                    </div>
+
                     <div class="right-bar">
                         <!-- Search Form -->
                         <div class="sinlge-bar shopping">

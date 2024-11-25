@@ -26,18 +26,6 @@
               <th>Action</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Discount</th>
-              <th>Stock</th>
-              <th>Photo</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </tfoot>
           <tbody>
 
             <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -68,9 +56,8 @@
                         <?php if($product->photo): ?>
                             <?php
                               $photo=explode(',',$product->photo);
-                              // dd($photo);
                             ?>
-                            <img src="<?php echo e($photo[0]); ?>" class="img-fluid zoom" style="max-width:80px" alt="<?php echo e($product->photo); ?>">
+                            <img src="<?php echo e($photo[0]); ?>" class="img-fluid zoom" style="max-width:80px;" alt="<?php echo e($product->photo); ?>">
                         <?php else: ?>
                             <img src="<?php echo e(asset('backend/img/thumbnail-default.jpg')); ?>" class="img-fluid" style="max-width:80px" alt="avatar.png">
                         <?php endif; ?>
@@ -115,7 +102,7 @@
       }
 
       .zoom:hover {
-        transform: scale(5);
+        transform: scale(1.3);
       }
   </style>
 <?php $__env->stopPush(); ?>

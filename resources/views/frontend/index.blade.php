@@ -55,7 +55,7 @@
                                 @endif
                                 <div class="content">
                                     <h3>{{$cat->title}}</h3>
-                                        <a href="{{route('product-cat',$cat->slug)}}">Discover Now</a>
+                                        <a style="color: white;font-size:25px" href="{{route('product-cat',$cat->slug)}}">Discover Now</a>
                                 </div>
                             </div>
                         </div>

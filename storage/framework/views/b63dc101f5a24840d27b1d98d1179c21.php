@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('main-content'); ?>
 
 <div class="card">
@@ -38,12 +36,6 @@ endif;
 unset($__errorArgs, $__bag); ?>
         </div>
 
-        <div class="form-group">
-          <label for="is_parent">Is Parent</label><br>
-          <input type="checkbox" name='is_parent' id='is_parent' value='1' checked> Yes                        
-        </div>
-        
-
         <div class="form-group d-none" id='parent_cat_div'>
           <label for="parent_id">Parent Category</label>
           <select name="parent_id" class="form-control">
@@ -77,7 +69,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
@@ -137,4 +129,5 @@ unset($__errorArgs, $__bag); ?>
   })
 </script>
 <?php $__env->stopPush(); ?>
+
 <?php echo $__env->make('backend.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\work\study\Complete-Ecommerce-in-laravel-10\resources\views/backend/category/create.blade.php ENDPATH**/ ?>

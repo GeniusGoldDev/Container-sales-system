@@ -28,18 +28,6 @@
               <th>Action</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Discount</th>
-              <th>Stock</th>
-              <th>Photo</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </tfoot>
           <tbody>
 
             @foreach($products as $product)
@@ -68,9 +56,8 @@
                         @if($product->photo)
                             @php
                               $photo=explode(',',$product->photo);
-                              // dd($photo);
                             @endphp
-                            <img src="{{$photo[0]}}" class="img-fluid zoom" style="max-width:80px" alt="{{$product->photo}}">
+                            <img src="{{$photo[0]}}" class="img-fluid zoom" style="max-width:80px;" alt="{{$product->photo}}">
                         @else
                             <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="img-fluid" style="max-width:80px" alt="avatar.png">
                         @endif
@@ -115,7 +102,7 @@
       }
 
       .zoom:hover {
-        transform: scale(5);
+        transform: scale(1.3);
       }
   </style>
 @endpush

@@ -23,12 +23,6 @@
           @enderror
         </div>
 
-        <div class="form-group">
-          <label for="is_parent">Is Parent</label><br>
-          <input type="checkbox" name='is_parent' id='is_parent' value='1' checked> Yes                        
-        </div>
-        {{-- {{$parent_cats}} --}}
-
         <div class="form-group d-none" id='parent_cat_div'>
           <label for="parent_id">Parent Category</label>
           <select name="parent_id" class="form-control">
@@ -55,7 +49,7 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
