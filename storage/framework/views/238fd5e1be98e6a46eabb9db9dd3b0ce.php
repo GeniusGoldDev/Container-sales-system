@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('main-content'); ?>
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
@@ -18,42 +16,19 @@
         <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
               <th>Title</th>
-              <th>Slug</th>
-              <th>Is Parent</th>
-              <th>Parent Category</th>
               <th>Photo</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>S.N.</th>
-              <th>Title</th>
-              <th>Slug</th>
-              <th>Is Parent</th>
-              <th>Parent Category</th>
-              <th>Photo</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </tfoot>
-          <tbody>
 
+          <tbody>
             <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
               <?php
               ?>
                 <tr>
-                    <td><?php echo e($category->id); ?></td>
                     <td><?php echo e($category->title); ?></td>
-                    <td><?php echo e($category->slug); ?></td>
-                    <td><?php echo e((($category->is_parent==1)? 'Yes': 'No')); ?></td>
-                    <td>
-                        <?php echo e($category->parent_info->title ?? ''); ?>
-
-                    </td>
                     <td>
                         <?php if($category->photo): ?>
                             <img src="<?php echo e($category->photo); ?>" class="img-fluid" style="max-width:80px" alt="<?php echo e($category->photo); ?>">

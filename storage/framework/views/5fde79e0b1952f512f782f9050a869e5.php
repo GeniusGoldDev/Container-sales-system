@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title','E-SHOP || Brand Page'); ?>
 <?php $__env->startSection('main-content'); ?>
  <!-- DataTales Example -->
@@ -14,45 +13,36 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <?php if(count($brands)>0): ?>
+        <?php if(count($bases)>0): ?>
         <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
-              <th>Title</th>
-              <th>Slug</th>
+              <th>City</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>S.N.</th>
-              <th>Title</th>
-              <th>Slug</th>
-              <th>Status</th>
-              <th>Action</th>
-              </tr>
-          </tfoot>
           <tbody>
-            <?php $__currentLoopData = $brands; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $bases; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $base): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <td><?php echo e($brand->id); ?></td>
-                    <td><?php echo e($brand->title); ?></td>
-                    <td><?php echo e($brand->slug); ?></td>
+                    <td><?php echo e($base->cityname); ?></td>
+                    <td><?php echo e($base->latitude); ?></td>
+                    <td><?php echo e($base->longitude); ?></td>
                     <td>
-                        <?php if($brand->status=='active'): ?>
-                            <span class="badge badge-success"><?php echo e($brand->status); ?></span>
+                        <?php if($base->status=='active'): ?>
+                            <span class="badge badge-success"><?php echo e($base->status); ?></span>
                         <?php else: ?>
-                            <span class="badge badge-warning"><?php echo e($brand->status); ?></span>
+                            <span class="badge badge-warning"><?php echo e($base->status); ?></span>
                         <?php endif; ?>
                     </td>
                     <td>
-                        <a href="<?php echo e(route('brand.edit',$brand->id)); ?>" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                        <form method="POST" action="<?php echo e(route('brand.destroy',[$brand->id])); ?>">
+                        <a href="<?php echo e(route('brand.edit',$base->id)); ?>" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                        <form method="POST" action="<?php echo e(route('brand.destroy',[$base->id])); ?>">
                           <?php echo csrf_field(); ?>
                           <?php echo method_field('delete'); ?>
-                              <button class="btn btn-danger btn-sm dltBtn" data-id=<?php echo e($brand->id); ?> style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                              <button class="btn btn-danger btn-sm dltBtn" data-id=<?php echo e($base->id); ?> style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </td>
                     
@@ -61,7 +51,7 @@
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </tbody>
         </table>
-        <span style="float:right"><?php echo e($brands->links()); ?></span>
+
         <?php else: ?>
           <h6 class="text-center">No Base found!!! Please create Base</h6>
         <?php endif; ?>

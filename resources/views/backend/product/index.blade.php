@@ -18,10 +18,8 @@
         <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
               <th>Title</th>
               <th>Category</th>
-              <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
               <th>Size</th>
@@ -35,10 +33,8 @@
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
               <th>Title</th>
               <th>Category</th>
-              <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
               <th>Size</th>
@@ -59,7 +55,6 @@
               $brands=DB::table('brands')->select('title')->where('id',$product->brand_id)->get();
               @endphp
                 <tr>
-                    <td>{{$product->id}}</td>
                     <td>{{$product->title}}</td>
                     <td>{{$product->cat_info['title']}}
                       <sub>

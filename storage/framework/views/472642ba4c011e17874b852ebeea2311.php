@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('main-content'); ?>
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
@@ -18,10 +16,8 @@
         <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
               <th>Title</th>
               <th>Category</th>
-              <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
               <th>Size</th>
@@ -35,10 +31,8 @@
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
               <th>Title</th>
               <th>Category</th>
-              <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
               <th>Size</th>
@@ -59,7 +53,6 @@
               $brands=DB::table('brands')->select('title')->where('id',$product->brand_id)->get();
               ?>
                 <tr>
-                    <td><?php echo e($product->id); ?></td>
                     <td><?php echo e($product->title); ?></td>
                     <td><?php echo e($product->cat_info['title']); ?>
 

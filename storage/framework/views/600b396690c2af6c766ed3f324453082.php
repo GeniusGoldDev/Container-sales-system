@@ -8,10 +8,6 @@
                     <!-- Top Left -->
                     <div class="top-left">
                         <ul class="list-main">
-                            <?php
-                                $settings=DB::table('settings')->get();
-
-                            ?>
                             <li><i class="ti-headphone-alt"></i>+1 (774) 899-4671</li>
                             <li><i class="ti-email"></i> Canalbigmundi@gmail.com</li>
                         </ul>
@@ -22,8 +18,6 @@
                     <!-- Top Right -->
                     <div class="right-content">
                         <ul class="list-main">
-                        <!-- <li><i class="ti-location-pin"></i> <a href="<?php echo e(route('order.track')); ?>">Track Order</a></li> -->
-                            
                             <?php if(auth()->guard()->check()): ?>
                                 <?php if(Auth::user()->role=='admin'): ?>
                                     <li><i class="ti-user"></i> <a href="<?php echo e(route('admin')); ?>"  target="_blank">Dashboard</a></li>
@@ -49,10 +43,7 @@
                 <div class="col-lg-2 col-md-2 col-12">
                     <!-- Logo -->
                     <div class="logo">
-                        <?php
-                            $settings=DB::table('settings')->get();
-                        ?>
-                        <a href="<?php echo e(route('home')); ?>"><img src="<?php $__currentLoopData = $settings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php echo e($data->logo); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>" alt="logo"></a>
+                        <a href="<?php echo e(route('home')); ?>"><img src="<?php echo e(asset('images/logo.jpeg')); ?>" alt="logo"></a>
                     </div>
                     <!--/ End Logo -->
                     <!-- Search Form -->
@@ -192,8 +183,6 @@
                                             <li class="<?php echo e(Request::path()=='about-us' ? 'active' : ''); ?>"><a href="<?php echo e(route('about-us')); ?>">About Us</a></li>
                                             <li class="<?php if(Request::path()=='product-grids'||Request::path()=='product-lists'): ?>  active  <?php endif; ?>"><a href="<?php echo e(route('product-grids')); ?>">Products</a><span class="new">New</span></li>
                                                 <!-- <?php echo e(Helper::getHeaderCategory()); ?> -->
-                                            <li class="<?php echo e(Request::path()=='blog' ? 'active' : ''); ?>"><a href="<?php echo e(route('blog')); ?>">Blog</a></li>
-
                                             <li class="<?php echo e(Request::path()=='contact' ? 'active' : ''); ?>"><a href="<?php echo e(route('contact')); ?>">Contact Us</a></li>
                                         </ul>
                                     </div>
