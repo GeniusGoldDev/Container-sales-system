@@ -18,9 +18,7 @@
         <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
               <th>Title</th>
-              <th>Slug</th>
               <th>Photo</th>
               <th>Status</th>
               <th>Action</th>
@@ -28,20 +26,16 @@
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
               <th>Title</th>
-              <th>Slug</th>
               <th>Photo</th>
               <th>Status</th>
               <th>Action</th>
               </tr>
           </tfoot>
           <tbody>
-            @foreach($banners as $banner)   
+            @foreach($banners as $banner)
                 <tr>
-                    <td>{{$banner->id}}</td>
                     <td>{{$banner->title}}</td>
-                    <td>{{$banner->slug}}</td>
                     <td>
                         @if($banner->photo)
                             <img src="{{$banner->photo}}" class="img-fluid zoom" style="max-width:80px" alt="{{$banner->photo}}">
@@ -59,7 +53,7 @@
                     <td>
                         <a href="{{route('banner.edit',$banner->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                         <form method="POST" action="{{route('banner.destroy',[$banner->id])}}">
-                          @csrf 
+                          @csrf
                           @method('delete')
                               <button class="btn btn-danger btn-sm dltBtn" data-id={{$banner->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                         </form>
@@ -76,7 +70,7 @@
                             </div>
                             <div class="modal-body">
                               <form method="post" action="{{ route('banners.destroy',$user->id) }}">
-                                @csrf 
+                                @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger" style="margin:auto; text-align:center">Parmanent delete user</button>
                               </form>
@@ -84,7 +78,7 @@
                           </div>
                         </div>
                     </div> --}}
-                </tr>  
+                </tr>
             @endforeach
           </tbody>
         </table>
@@ -124,7 +118,7 @@
   <!-- Page level custom scripts -->
   <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
   <script>
-      
+
       $('#banner-dataTable').DataTable( {
             "columnDefs":[
                 {
@@ -137,7 +131,7 @@
         // Sweet alert
 
         function deleteData(id){
-            
+
         }
   </script>
   <script>

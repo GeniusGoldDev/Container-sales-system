@@ -16,13 +16,13 @@
         <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>S.N.</th>
               <th>Title</th>
               <th>Category</th>
-              <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
+              <th>Size</th>
               <th>Condition</th>
+              <th>Brand</th>
               <th>Stock</th>
               <th>Photo</th>
               <th>Status</th>
@@ -31,13 +31,13 @@
           </thead>
           <tfoot>
             <tr>
-              <th>S.N.</th>
               <th>Title</th>
               <th>Category</th>
-              <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
+              <th>Size</th>
               <th>Condition</th>
+              <th>Brand</th>
               <th>Stock</th>
               <th>Photo</th>
               <th>Status</th>
@@ -53,7 +53,6 @@
               $brands=DB::table('brands')->select('title')->where('id',$product->brand_id)->get();
               ?>
                 <tr>
-                    <td><?php echo e($product->id); ?></td>
                     <td><?php echo e($product->title); ?></td>
                     <td><?php echo e($product->cat_info['title']); ?>
 
@@ -63,9 +62,11 @@
                       </sub>
                     </td>
                     <td><?php echo e((($product->is_featured==1)? 'Yes': 'No')); ?></td>
-                    <td><?php echo e($product->price); ?> /-</td>
+                    <td>Rs. <?php echo e($product->price); ?> /-</td>
                     <td>  <?php echo e($product->discount); ?>% OFF</td>
+                    <td><?php echo e($product->size); ?></td>
                     <td><?php echo e($product->condition); ?></td>
+                    <td> <?php echo e(ucfirst($product->brand->title)); ?></td>
                     <td>
                       <?php if($product->stock>0): ?>
                       <span class="badge badge-primary"><?php echo e($product->stock); ?></span>
