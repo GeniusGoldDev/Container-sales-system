@@ -85,14 +85,32 @@
                                             $after_discount=($product_detail->price-(($product_detail->price*$product_detail->discount)/100));
                                         @endphp
                                         <p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>${{number_format($product_detail->price,2)}}</s> </p>
-                                        <p class="description">{!!($product_detail->summary)!!}
-                                        </p>
+                                        <p class="description"></p>
                                         <div class="form-group">
                                             <div style="float: left; margin-bottom: 0.75rem;">
                                                 <input class="custom-input" id="zip-input" type="text" placeholder="Enter your zip code">
                                                 <div class="err err-init" id="zip-input-err">Invalid Zip Code</div>
                                             </div>
                                             <button class="btn custom-btn" id='zip-button'>Confirm</button>
+                                        </div>
+
+                                        <div class="form-group" style="background-color: #efefef; padding: 20px;">
+                                            <div>Choose a delivery option</div>
+                                            <div class="divider"></div>
+                                            <label>
+                                                <input type="radio" name="delivery-option" class="custom-radio" data="delivery-tilbed" value="tilt-bed" checked>
+                                                Tilt bed delivery service. No offloading equipment needed.
+                                            </label>
+                                            <br>
+                                            <label>
+                                                <input type="radio" name="delivery-option" class="custom-radio" data="delivery-flatbed" value="flatbed">
+                                                Flatbed delivery service. You will require your own offloading equipment.
+                                            </label>
+                                            <br>
+                                            <label>
+                                                <input type="radio" name="delivery-option" class="custom-radio" data="delivery-pickup" value="pickup">
+                                                Pick up (free)
+                                            </label>
                                         </div>
 
                                     </div>
@@ -150,11 +168,11 @@
                                                     <p>Product discount: </p><b style="color: green;" id="zip-discount"></b>
                                                 </div>
                                                 <div class="col-12 d-flex justify-content-between">
-                                                    <p>Shipping Price: </p><b id="zip-ship">31 mile</b>
+                                                    <p>Shipping Price: </p><b id="zip-ship"></b>
                                                 </div>
                                                 <div class="divider"></div>
                                                 <div class="col-12 d-flex justify-content-between">
-                                                    <p>Total Price: </p><b id="zip-total">31 mile</b>
+                                                    <p>Total Price: </p><b id="zip-total"></b>
                                                 </div>
                                             </div>
                                             <div class="quantity">
@@ -574,6 +592,32 @@
 		var pricePerContainer = @json($product_detail['price']);
 		pricePerContainer = parseFloat(pricePerContainer).toFixed(2);
 		var discountPerContainer = @json($product_detail['discount']);
+        var pricePerMile = @json($shippings);
+        var shippingType = 'til_bed';
+        var distance = 0.00;
+        var shippingPrice = 0.00;
+        var currentQty = 1;
+        var containerPrice = 0.00;
+        var containerDiscount = 0.00;
+        var totalPrice = 0.00;
+        var til_price = 0.00;
+        var flat_price = 0.00;
+
+        function convertFixed() {
+            totalPrice = parseFloat(totalPrice).toFixed(2);
+            containerPrice = parseFloat(containerPrice).toFixed(2);
+            containerDiscount = parseFloat(containerDiscount).toFixed(2);
+            shippingPrice = parseFloat(shippingPrice).toFixed(2);
+        }
+
+        for(var i=0; i<pricePerMile.length ; i++) {
+            if(pricePerMile[i]['type'] === 'til_bed') {
+                til_price = pricePerMile[i]['price'];
+            } else if(pricePerMile[i]['type'] === 'flat_bed') {
+                flat_price = pricePerMile[i]['price'];
+            }
+        }
+
 		$('#zip-button').click(function() {
 			zipCode = $('#zip-input').val();
 			$.ajax({
@@ -582,6 +626,7 @@
                 data:{
                     _token:"{{csrf_token()}}",
                     zipCode:zipCode,
+                    shippingType: shippingType
                 },
                 success:function(response){
 					$('#zip-input').removeClass('is-err');
@@ -593,17 +638,17 @@
 					if(response.status){
 						console.log(response.msg);
 						var data = response.msg;
-						var distance = data['distance'];
-						var shippingPrice = parseFloat(data.shippingPrice).toFixed(2);
-						var currentQty = $('#quantity').val();
-						var containerPrice = currentQty * pricePerContainer;
-						var containerDiscount = currentQty * discountPerContainer * pricePerContainer / 100;
-						var totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
-						
+						distance = data['distance'];
+						shippingPrice = parseFloat(data.shippingPrice).toFixed(2);
+						currentQty = $('#quantity').val();
+						containerPrice = currentQty * pricePerContainer;
+						containerDiscount = currentQty * discountPerContainer * pricePerContainer / 100;
+						totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
+						convertFixed();
 						$('#zip-shipping').val(shippingPrice);
 						$('#zip-start').text(data.depot);
 						$('#zip-end').text(data.des);
-						$('#zip-distance').text(distance);
+						$('#zip-distance').text(distance + 'miles');
 						$('#container-qty').text(currentQty);
 						$('#zip-container').text('$' + containerPrice);
 						$('#zip-discount').text('$' + containerDiscount);
@@ -624,6 +669,43 @@
 				}
             })
 		})
+        $('input[type="radio"]').click(function() {
+            var data = $(this).attr('data');
+            switch(data) {
+                case 'delivery-flatbed': shippingType = 'flat_bed'; break;
+                case 'delivery-tilbed': shippingType = 'til_bed'; break;
+                case 'delivery-pickup': shippingType = 'pickup'; break;
+            }
+            if(shippingType === 'til_bed') {
+                if(distance > 80) {
+                    shippingPrice = parseFloat(distance * til_price).toFixed(2);
+                } else {
+                    shippingPrice = 400.00;
+                }
+                totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);			
+                convertFixed();
+                $('#zip-ship').text('$' + shippingPrice);
+                $('#zip-total').text('$' + totalPrice);
+            } else if(shippingType === 'flat_bed') {
+                if(distance > 80) {
+                    shippingPrice = parseFloat(distance * flat_price).toFixed(2);
+                } else {
+                    shippingPrice = 400.00;
+                }
+                totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
+                convertFixed();
+                $('#zip-ship').text('$' + shippingPrice);
+                $('#zip-total').text('$' + totalPrice);
+            }
+            else if(shippingType === 'pickup') {
+                shippingPrice = 0.00;
+                totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
+                convertFixed();
+                $('#zip-ship').text('$' + shippingPrice);
+                $('#zip-total').text('$' + totalPrice);
+            }
+            console.log(shippingType);
+        })
 	</script>
 
     {{-- <script>
