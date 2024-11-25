@@ -157,248 +157,148 @@ class CartController extends Controller
         }
     }
 
-    // public function fetchLocation(Request $request) {
-    //     $request->validate([
-    //         'zipCode' => 'required',
-    //     ]);
-
-    //     $country = 'US';
-    //     $postalCode = $request->zipCode;
-
-    //     try {
-    //         // Make an HTTP request to fetch location details
-    //         $response = $this->client->get('search', [
-    //             'query' => [
-    //                 'postalcode' => $postalCode,
-    //                 'country'    => $country,
-    //                 'format'     => 'json',
-    //             ],
-    //             'headers' => [
-    //                 'User-Agent' => 'Container', // Ensure this is specific to your app
-    //             ],
-    //         ]);
-    //         $result = $response->getBody()->getContents();
-    //         $location = json_decode($result, true);
-
-    //         if (empty($location)) {
-    //             return response()->json([
-    //                 'status' => false,
-    //                 'msg' => "Enter a valid ZIP code.",
-    //             ]);
-    //         }
-
-    //         // Extract location data
-    //         $locationData = $location[0];
-    //         $destinationLat = $locationData['lat'];
-    //         $destinationLon = $locationData['lon'];
-    //         $destinationName = $locationData['display_name'];
-
-    //         // Fetch all shipping locations
-    //         $bases = Base::all();
-    //         $shippings = Shipping::all();
-
-    //         if ($bases->isEmpty() || $shippings->isEmpty()) {
-    //             return response()->json([
-    //                 'status' => false,
-    //                 'msg' => "No shipping locations available.",
-    //             ]);
-    //         }
-
-    //         // Calculate the shortest distance
-    //         $shortestDistance = PHP_INT_MAX;
-    //         $nearestBase = null;
-
-    //         foreach ($bases as $base) {
-    //             $distance = $this->calculateDistance(
-    //                 $base->latitude,
-    //                 $base->longitude,
-    //                 $destinationLat,
-    //                 $destinationLon
-    //             );
-
-    //             Log::info('Calculated Distance', [
-    //                 'base' => $base->cityname,
-    //                 'distance' => $distance,
-    //             ]);
-
-    //             if ($distance < $shortestDistance) {
-    //                 $shortestDistance = $distance;
-    //                 $nearestBase = $base;
-    //             }
-    //         }
-
-    //         // Determine shipping price based on distance
-    //         $shippingPrice = $shippings->pluck('price')->min(); // Default to minimum price
-    //         if ($shortestDistance > 300) {
-    //             $shippingPrice += $shortestDistance * 0.5; // Example calculation
-    //         }
-
-    //         // Prepare response data
-    //         $responseData = [
-    //             'destination' => $destinationName,
-    //             'depot' => $nearestBase ? $nearestBase->cityname : 'Unknown',
-    //             'distance' => round($shortestDistance, 2),
-    //             'shippingPrice' => round($shippingPrice, 2),
-    //         ];
-
-    //         return response()->json([
-    //             'status' => true,
-    //             'msg' => $responseData,
-    //         ]);
-
-    //     } catch (\Exception $e) {
-    //         Log::error('Error fetching location', ['error' => $e->getMessage()]);
-    //         return response()->json([
-    //             'status' => false,
-    //             'msg' => "An error occurred. Please try again.",
-    //         ]);
-    //     }
-    // }
-
-    // public function calculateDistance($lat1, $lon1, $lat2, $lon2)
-    // {
-    //     $earthRadius = 3958.8; // Radius of Earth in miles
-
-    //     $latDiff = deg2rad($lat2 - $lat1);
-    //     $lonDiff = deg2rad($lon2 - $lon1);
-
-    //     $a = sin($latDiff / 2) * sin($latDiff / 2) +
-    //         cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
-    //         sin($lonDiff / 2) * sin($lonDiff / 2);
-
-    //     $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-
-    //     return $earthRadius * $c; // Distance in miles
-    // }
-    public function fetchLocation(Request $request)
-{
-    $request->validate([
-        'zipCode' => 'required',
-    ]);
-
-    $country = 'US';
-    $postalCode = $request->zipCode;
-
-    try {
-        // Fetch location data using API
-        $response = $this->client->get('search', [
-            'query' => [
-                'postalcode' => $postalCode,
-                'country'    => $country,
-                'format'     => 'json',
-            ],
-            'headers' => [
-                'User-Agent' => 'Container', // Ensure this is specific to your app
-            ],
-        ]);
-        $result = $response->getBody()->getContents();
-        $location = json_decode($result, true);
-
-        if (empty($location)) {
-            return response()->json([
-                'status' => false,
-                'msg' => "Enter a valid ZIP code.",
-            ]);
-        }
-
-        // Extract location data
-        $locationData = $location[0];
-        $destinationLat = $locationData['lat'] ?? null;
-        $destinationLon = $locationData['lon'] ?? null;
-        $destinationName = $locationData['display_name'] ?? 'Unknown';
-
-        if (!$destinationLat || !$destinationLon) {
-            return response()->json([
-                'status' => false,
-                'msg' => "Invalid location data received.",
-            ]);
-        }
-
-        // Fetch all bases and shipping records
-        $bases = Base::all();
-        $shippings = Shipping::all();
-        $fixedPrices = $shippings->whereIn('type', ['Fixed'])->pluck('price');
-        $PerMilePrices = $shippings->whereIn('type', ['Per_mile'])->pluck('price');
-
-        if ($bases->isEmpty() || $shippings->isEmpty()) {
-            return response()->json([
-                'status' => false,
-                'msg' => "No shipping locations available.",
-            ]);
-        }
-
-        // Calculate the shortest distance
-        $shortestDistance = PHP_INT_MAX;
-        $nearestBase = null;
-
-        foreach ($bases as $base) {
-            Log::info('Coordinates', [
-                'base_lat' => $base->latitude,
-                'base_lon' => $base->longitude,
-                'dest_lat' => $destinationLat,
-                'dest_lon' => $destinationLon,
-            ]);
-
-            if (!is_numeric($base->latitude) || !is_numeric($base->longitude)) {
-                Log::warning('Invalid base coordinates detected', ['base_id' => $base->id]);
-                continue; // Skip invalid base
-            }
-
-            $distance = $this->calculateDistance(
-                $base->latitude,
-                $base->longitude,
-                $destinationLat,
-                $destinationLon
-            );
-
-            Log::info('Calculated Distance', [
-                'base' => $base->cityname,
-                'distance' => $distance,
-            ]);
-
-            if ($distance < $shortestDistance) {
-                $shortestDistance = $distance;
-                $nearestBase = $base;
-            }
-        }
-
-        // Determine shipping price
-        $shippingPrice = $fixedPrices->min();
-
-        // Check if distance exceeds 300 miles
-        if ($shortestDistance < 300) {
-            if ($fixedPrices->isNotEmpty()) {
-                // Use the minimum fixed price for distances over 300 miles
-                $shippingPrice = $fixedPrices->min();
-            }
-        } else {
-            if ($PerMilePrices->isNotEmpty()) {
-                // Use Per Mile Price for distances under 300 miles
-                $shippingPrice = $shortestDistance * $PerMilePrices->min();
-            }
-        }
-
-
-        // Prepare response data
-        $responseData = [
-            'destination' => $destinationName,
-            'depot' => $nearestBase ? $nearestBase->cityname : 'Unknown',
-            'distance' => round($shortestDistance, 2) . ' miles',
-            'shippingPrice' => round($shippingPrice, 2),
-        ];
-
-        return response()->json([
-            'status' => true,
-            'msg' => $responseData,
+    public function fetchLocation(Request $request) {
+    
+        $request->validate([
+            'zipCode' => 'required',
         ]);
 
-    } catch (\Exception $e) {
-        Log::error('Error fetching location', ['error' => $e->getMessage()]);
-        return response()->json([
-            'status' => false,
-            'msg' => "An error occurred. Please try again.",
-        ]);
-    }
+        $country = 'US';
+        $postalCode = $request->zipCode;
+        $shippingType = $request->shippingType;
+
+        try {
+            // Fetch location data using API
+            $response = $this->client->get('search', [
+                'query' => [
+                    'postalcode' => $postalCode,
+                    'country'    => $country,
+                    'format'     => 'json',
+                ],
+                'headers' => [
+                    'User-Agent' => 'Container', // Ensure this is specific to your app
+                ],
+            ]);
+            $result = $response->getBody()->getContents();
+            $location = json_decode($result, true);
+
+            if (empty($location)) {
+                return response()->json([
+                    'status' => false,
+                    'msg' => "Enter a valid ZIP code.",
+                ]);
+            }
+
+            // Extract location data
+            $locationData = $location[0];
+            $destinationLat = $locationData['lat'] ?? null;
+            $destinationLon = $locationData['lon'] ?? null;
+            $destinationName = $locationData['display_name'] ?? 'Unknown';
+
+            if (!$destinationLat || !$destinationLon) {
+                return response()->json([
+                    'status' => false,
+                    'msg' => "Invalid location data received.",
+                ]);
+            }
+
+            // Fetch all bases and shipping records
+            $bases = Base::all();
+            $shippings = Shipping::all();
+            $fixedPrices = $shippings->whereIn('type', ['Fixed'])->pluck('price');
+            $til_bedPrice = $shippings->whereIn('type',['til_bed'])->pluck('price');
+            $flat_bedPrice = $shippings->whereIn('type',['flat_bed'])->pluck('price');
+
+            if($shippingType === 'til_bed') {
+                $PerMilePrices = $til_bedPrice->min();
+            } else if($shippingType === 'flat_bed') {
+                $PerMilePrices = $flat_bedPrice->min();
+            } else {
+                $PerMilePrices = 0;
+            }
+            if ($bases->isEmpty() || $shippings->isEmpty()) {
+                return response()->json([
+                    'status' => false,
+                    'msg' => "No shipping locations available.",
+                ]);
+            }
+
+            // Calculate the shortest distance
+            $shortestDistance = PHP_INT_MAX;
+            $nearestBase = null;
+
+            foreach ($bases as $base) {
+                Log::info('Coordinates', [
+                    'base_lat' => $base->latitude,
+                    'base_lon' => $base->longitude,
+                    'dest_lat' => $destinationLat,
+                    'dest_lon' => $destinationLon,
+                ]);
+
+                if (!is_numeric($base->latitude) || !is_numeric($base->longitude)) {
+                    Log::warning('Invalid base coordinates detected', ['base_id' => $base->id]);
+                    continue; // Skip invalid base
+                }
+
+                $distance = $this->calculateDistance(
+                    $base->latitude,
+                    $base->longitude,
+                    $destinationLat,
+                    $destinationLon
+                );
+
+                Log::info('Calculated Distance', [
+                    'base' => $base->cityname,
+                    'distance' => $distance,
+                ]);
+
+                if ($distance < $shortestDistance) {
+                    $shortestDistance = $distance;
+                    $nearestBase = $base;
+                }
+            }
+
+            // Determine shipping price
+            $shippingPrice = $fixedPrices->min();
+            // Check if distance exceeds 80 miles
+            Log::info("FINAL", [
+                'destination' => $destinationName,
+                'depot' => $nearestBase ? $nearestBase->cityname : 'Unknown',
+                'distance' => round((float)$shortestDistance, 2),
+                'shippingPrice' => round((float)$shippingPrice, 2),
+            ]);
+            if ($shortestDistance < 80) {
+                if ($fixedPrices->isNotEmpty()) {
+                    // Use the minimum fixed price for distances over 80 miles
+                    $shippingPrice = $fixedPrices->min();
+                }
+                if($shippingType === 'pickup') {
+                    $shippingPrice = 0.00;
+                }
+            } else {
+                // Use Per Mile Price for distances under 80 miles
+                $shippingPrice = $shortestDistance * $PerMilePrices;
+            }
+            // Prepare response data
+            $responseData = [
+                'destination' => $destinationName,
+                'depot' => $nearestBase ? $nearestBase->cityname : 'Unknown',
+                'distance' => round((float)$shortestDistance, 2),
+                'shippingPrice' => round((float)$shippingPrice, 2),
+            ];
+
+            return response()->json([
+                'status' => true,
+                'msg' => $responseData,
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error fetching location', ['error' => $e->getMessage()]);
+            return response()->json([
+                'status' => false,
+                'msg' => "An error occurred. Please try again.",
+            ]);
+        }
 }
 
 public function calculateDistance($lat1, $lon1, $lat2, $lon2)
