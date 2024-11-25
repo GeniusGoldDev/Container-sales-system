@@ -15,7 +15,7 @@
     <div class="card-body">
       <div class="table-responsive">
         @if(count($products)>0)
-        <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
+        <table class="table_p table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th>Title</th>
@@ -103,6 +103,10 @@
 
       .zoom:hover {
         transform: scale(1.3);
+      }
+      .table_p tbody tr td img {
+        width: 80px;
+        height: 100px;
       }
   </style>
 @endpush
