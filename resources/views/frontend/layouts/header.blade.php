@@ -94,8 +94,6 @@
                                     @endphp
                                 @endforeach
                            @endif
-                            <a href="{{route('wishlist')}}" class="single-icon"><i class="fa fa-heart-o"></i> <span class="total-count">{{Helper::wishlistCount()}}</span></a>
-                            <!-- Shopping Item -->
                             @auth
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
@@ -127,9 +125,6 @@
                             @endauth
                             <!--/ End Shopping Item -->
                         </div>
-                        {{-- <div class="sinlge-bar">
-                            <a href="{{route('wishlist')}}" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                        </div> --}}
                         <div class="sinlge-bar shopping">
                             <a href="{{route('cart')}}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{Helper::cartCount()}}</span></a>
                             <!-- Shopping Item -->

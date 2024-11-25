@@ -94,8 +94,6 @@
                                     ?>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                            <?php endif; ?>
-                            <a href="<?php echo e(route('wishlist')); ?>" class="single-icon"><i class="fa fa-heart-o"></i> <span class="total-count"><?php echo e(Helper::wishlistCount()); ?></span></a>
-                            <!-- Shopping Item -->
                             <?php if(auth()->guard()->check()): ?>
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
@@ -127,7 +125,6 @@
                             <?php endif; ?>
                             <!--/ End Shopping Item -->
                         </div>
-                        
                         <div class="sinlge-bar shopping">
                             <a href="<?php echo e(route('cart')); ?>" class="single-icon"><i class="ti-bag"></i> <span class="total-count"><?php echo e(Helper::cartCount()); ?></span></a>
                             <!-- Shopping Item -->
