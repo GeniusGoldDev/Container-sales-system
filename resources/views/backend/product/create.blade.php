@@ -32,11 +32,7 @@
         </div>
 
 
-        <div class="form-group">
-          <label for="is_featured">Is Featured</label><br>
-          <input type="checkbox" name='is_featured' id='is_featured' value='1' checked> Yes
-        </div>
-              {{-- {{$categories}} --}}
+          <input style="display: none;" type="checkbox" name='is_featured' id='is_featured' value='1' checked>
 
         <div class="form-group">
           <label for="cat_id">Category <span class="text-danger">*</span></label>

@@ -85,9 +85,7 @@
                         <div class="sinlge-bar shopping">
 
                         </div>
-
                     </div>
-
                     <div class="right-bar">
                         <!-- Search Form -->
                         <div class="sinlge-bar shopping">
