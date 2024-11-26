@@ -426,6 +426,7 @@
             <div class="modal-content col-12 col-md-10 col-lg-8  mx-auto" style="padding: 50px;">
                 <div class="">
                     <h4 class="mb-2" style="color: #3131cf">Write a quote</h4>                                               
+                    <h5 class="mb-2">Distance: <b id="modal-distance"></b> miles</h5>                                                
                 </div>    
                 <div class="divider"></div>       
                 <form class="form-contact form contact_form" method="post" action="{{route('product.quote')}}" id="contactForm" novalidate="novalidate">
@@ -476,6 +477,7 @@
                         <div class="col-12">
                             <div class="form-group button">
                                 <button type="submit" data-bs-dismiss="modal" aria-label="Close" class="btn" >Send Message</button>
+                                <button class="btn" id="quote-modal-close">Close</button>
                             </div>
                         </div>
                         <input type="hidden" id="">
@@ -820,6 +822,7 @@
 						distance = data['distance'];
                         if(distance > 300) {
                             $('#zipcode').val(zipCode);
+                            $('#modal-distance').text(distance);
                             $('#quote-modal').modal('show');
                         } else {
                             $('#add-form').removeClass('dis-init');
@@ -868,6 +871,9 @@
             ajaxSetValue();
             setValue();
             $('#other-depots-modal').modal('hide'); // Closes the modal
+        })
+        $('#quote-modal-close').click(function() {
+            $('#quote-modal').modal('hide');
         })
         
 	</script>

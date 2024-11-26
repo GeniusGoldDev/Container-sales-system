@@ -66,16 +66,20 @@ class MessageController extends Controller
     }
 
     public function quote(Request $request) {
-        $this->validate($request,[
-            'name'=>'string|required|min:2',
-            'email'=>'email|required',
-            'message'=>'required|min:20|max:200',
-            'subject'=>'string|required',
-            'phone'=>'numeric|required'
-        ]);
-        dd($request->name);
 
         $message=Message::create($request->all());
+
+        $data=array();
+        $data['url']=route('message.show',$message->id);
+        $data['date']=$message->created_at->format('F d, Y h:i A');
+        $data['name']=$message->name;
+        $data['email']=$message->email;
+        $data['phone']=$message->phone;
+        $data['message']=$message->message;
+        $data['subject']=$message->subject;
+        $data['photo']=Auth()->user()->photo;
+        event(new MessageSent($data));
+        exit();
     }
 
     /**
