@@ -226,14 +226,8 @@ class CartController extends Controller
             // Calculate the shortest distance
             $shortestDistance = PHP_INT_MAX;
             $nearestBase = null;
-
+            $otherBases  = [];
             foreach ($bases as $base) {
-                Log::info('Coordinates', [
-                    'base_lat' => $base->latitude,
-                    'base_lon' => $base->longitude,
-                    'dest_lat' => $destinationLat,
-                    'dest_lon' => $destinationLon,
-                ]);
 
                 if (!is_numeric($base->latitude) || !is_numeric($base->longitude)) {
                     Log::warning('Invalid base coordinates detected', ['base_id' => $base->id]);
@@ -247,26 +241,28 @@ class CartController extends Controller
                     $destinationLon
                 );
 
-                Log::info('Calculated Distance', [
-                    'base' => $base->cityname,
-                    'distance' => $distance,
-                ]);
-
                 if ($distance < $shortestDistance) {
                     $shortestDistance = $distance;
                     $nearestBase = $base;
                 }
+                $otherBases[] = [
+                    'depot' => $this->cityNameConvert($base->cityname),
+                    'lat' => $base->latitude,
+                    'lon' => $base->longitude,
+                    'distance' => $distance,
+                ];
             }
+
+            usort($otherBases, function($a, $b) {
+                return $a['distance'] - $b['distance'];
+            });
+            
+            // Get the first 5 elements
+            $firstFive = array_slice($otherBases, 0, 4);
 
             // Determine shipping price
             $shippingPrice = $fixedPrices->min();
             // Check if distance exceeds 80 miles
-            Log::info("FINAL", [
-                'destination' => $destinationName,
-                'depot' => $nearestBase ? $nearestBase->cityname : 'Unknown',
-                'distance' => round((float)$shortestDistance, 2),
-                'shippingPrice' => round((float)$shippingPrice, 2),
-            ]);
             if ($shortestDistance < 80) {
                 if ($fixedPrices->isNotEmpty()) {
                     // Use the minimum fixed price for distances over 80 miles
@@ -280,11 +276,14 @@ class CartController extends Controller
                 $shippingPrice = $shortestDistance * $PerMilePrices;
             }
             // Prepare response data
+            $destinationName = $this->cityNameConvert($destinationName);
+            $depot = $nearestBase ? $this->cityNameConvert($nearestBase->cityname) : 'Unknown';
             $responseData = [
                 'destination' => $destinationName,
-                'depot' => $nearestBase ? $nearestBase->cityname : 'Unknown',
+                'depot' => $depot,
                 'distance' => round((float)$shortestDistance, 2),
                 'shippingPrice' => round((float)$shippingPrice, 2),
+                'otherBases' => $firstFive
             ];
 
             return response()->json([
@@ -299,27 +298,39 @@ class CartController extends Controller
                 'msg' => "An error occurred. Please try again.",
             ]);
         }
-}
-
-public function calculateDistance($lat1, $lon1, $lat2, $lon2)
-{
-    if (!is_numeric($lat1) || !is_numeric($lon1) || !is_numeric($lat2) || !is_numeric($lon2)) {
-        return 0; // Return 0 for invalid inputs
     }
 
-    $earthRadius = 3958.8; // Radius of Earth in miles
+    public function cityNameConvert($cityName) {
+        // Split the string by comma
+        $parts = explode(",", $cityName);
 
-    $latDiff = deg2rad($lat2 - $lat1);
-    $lonDiff = deg2rad($lon2 - $lon1);
+        // Extract the necessary parts
+        $city = trim($parts[1]);
+        $state = trim($parts[3]);
 
-    $a = sin($latDiff / 2) * sin($latDiff / 2) +
-        cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
-        sin($lonDiff / 2) * sin($lonDiff / 2);
+        // Combine the city and state back into a single string
+        return $city . ", " . $state;
+    }
 
-    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+    public function calculateDistance($lat1, $lon1, $lat2, $lon2)
+    {
+        if (!is_numeric($lat1) || !is_numeric($lon1) || !is_numeric($lat2) || !is_numeric($lon2)) {
+            return 0; // Return 0 for invalid inputs
+        }
 
-    return $earthRadius * $c; // Distance in miles
-}
+        $earthRadius = 3958.8; // Radius of Earth in miles
+
+        $latDiff = deg2rad($lat2 - $lat1);
+        $lonDiff = deg2rad($lon2 - $lon1);
+
+        $a = sin($latDiff / 2) * sin($latDiff / 2) +
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+            sin($lonDiff / 2) * sin($lonDiff / 2);
+
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+        return $earthRadius * $c; // Distance in miles
+    }
 
 
 

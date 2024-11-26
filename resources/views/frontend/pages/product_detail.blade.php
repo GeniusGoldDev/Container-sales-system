@@ -150,8 +150,9 @@
                                             @csrf
                                             <div class="row p-3 w-75">
                                                 <input type="hidden" id="zip-shipping">
-                                                <div class="col-12">
-                                                    From <b id="zip-start">LA, CA, USA</b>
+                                                <div class="col-12 d-flex justify-content-between">
+                                                    <p>From <b id="zip-start">LA, CA, USA</b></p>
+                                                    <p data-toggle="modal" data-target="#other-depots-modal" id="other-depots" class="other-depots">Other depots</p>
                                                 </div>
                                                 <div class="divider"></div>
                                                 <div class="col-12 text-end">
@@ -358,6 +359,151 @@
 		</section>
 		<!--/ End Shop Single -->
 
+		<!-- Start Most Popular -->
+        <div class="product-area most-popular related-product section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2>Related Products</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {{-- {{$product_detail->rel_prods}} --}}
+                    <div class="col-12">
+                        <div class="owl-carousel popular-slider">
+                            @foreach($product_detail->rel_prods as $data)
+                                @if($data->id !==$product_detail->id)
+                                    <!-- Start Single Product -->
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a href="{{route('product-detail',$data->slug)}}">
+                                                @php
+                                                    $photo=explode(',',$data->photo);
+                                                @endphp
+                                                <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                                <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                                <span class="price-dec">{{$data->discount}} % Off</span>
+                                                                        {{-- <span class="out-of-stock">Hot</span> --}}
+                                            </a>
+                                            <div class="button-head">
+                                                <div class="product-action">
+                                                    <a data-toggle="modal" data-target="#modelExample" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                    <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                                    <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+                                                </div>
+                                                <div class="product-action-2">
+                                                    <a title="Add to cart" href="#">Add to cart</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3><a href="{{route('product-detail',$data->slug)}}">{{$data->title}}</a></h3>
+                                            <div class="product-price">
+                                                @php
+                                                    $after_discount=($data->price-(($data->discount*$data->price)/100));
+                                                @endphp
+                                                <span class="old">${{number_format($data->price,2)}}</span>
+                                                <span>${{number_format($after_discount,2)}}</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- End Single Product -->
+
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	    <!-- End Most Popular Area -->
+
+    <div class="modal" id="quote-modal" role="dialog">
+        <div class=" row" role="document">
+            <div class="modal-content col-12 col-md-10 col-lg-8  mx-auto" style="padding: 50px;">
+                <div class="">
+                    <h4 class="mb-2" style="color: #3131cf">Write a quote</h4>                                               
+                    <h5 class="mb-2">Distance: <b id="modal-distance"></b> miles</h5>                                                
+                </div>    
+                <div class="divider"></div>       
+                <form class="form-contact form contact_form" method="post" action="{{route('product.quote')}}" id="contactForm" novalidate="novalidate">
+                    @csrf         
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Your Name<span class="custom-span">*</span></label>
+                                <input class="custom-input" name="name" id="name" type="text" placeholder="Enter your name">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Your Surname<span class="custom-span">*</span></label>
+                                <input class="custom-input" name="subject" type="text" id="subject" placeholder="Enter Surname">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Your Email<span class="custom-span">*</span></label>
+                                <input class="custom-input" name="email" type="email" id="email" placeholder="Enter email address">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Your Phone<span class="custom-span">*</span></label>
+                                <input class="custom-input" id="phone" name="phone" type="number" placeholder="Enter your phone">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Zip Code<span class="custom-span">*</span></label>
+                                <input class="custom-input" id="zipcode" name="zipcode" type="number" placeholder="Enter your zipcode" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Quentity<span class="custom-span">*</span></label>
+                                <input class="custom-input" id="qty" name="qty" type="number" placeholder="Enter your quantity" value='1'>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group message">
+                                <label class="custom-label">your message<span class="custom-span">*</span></label>
+                                <textarea class="custom-textarea" name="message" id="message" cols="30" rows="9" placeholder="Enter Message"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group button">
+                                <button type="submit" data-bs-dismiss="modal" aria-label="Close" class="btn" >Send Message</button>
+                                <button class="btn" id="quote-modal-close">Close</button>
+                            </div>
+                        </div>
+                        <input type="hidden" id="">
+                    </div>          
+                </form>                                          
+            </div>
+        </div>                                                           
+    </div>
+
+    <div class="modal" id="other-depots-modal" role="dialog">
+        <div class="modal-dialog row" role="document">
+            <div class="modal-content p-3 col-12 col-md-10 col-lg-8  mx-auto">
+                <div class="">
+                    <h3>Select other depots</h3>                                               
+                </div>    
+                <div class="divider"></div>                
+                <div class="modal-body" style="max-height: 500px !important;">
+                    <h5 class="mb-4">Available depots</h5>
+                    <div id="depots-container">
+
+                    </div>
+                </div>                               
+            </div>
+        </div>                                                           
+    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="modelExample" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -518,16 +664,19 @@
 		.star-rating__input:checked ~ .star-rating__ico:before {
 		content: "\F005";
 		}
-        .shop.single .product-gallery .slides li img {
-            height: 433px;
-        }
-        li img {
-            height: 100px;
-        }
 
+        .error {
+            color: red;
+        }
+        .input.error {
+            border-color: 2px solid red;
+        }
 	</style>
 @endpush
 @push('scripts')
+<script src="{{ asset('frontend/js/jquery.form.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('frontend/js/contact.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
 	<script>
@@ -537,6 +686,7 @@
 		var discountPerContainer = @json($product_detail['discount']);
         var pricePerMile = @json($shippings);
         var shippingType = 'til_bed';
+        var categoryType = @json($product_detail['cat_id']);
         var distance = 0.00;
         var shippingPrice = 0.00;
         var currentQty = 1;
@@ -545,12 +695,89 @@
         var totalPrice = 0.00;
         var til_price = 0.00;
         var flat_price = 0.00;
-
+        var depot = '';
+        var destination = '';
+        
+        if(categoryType == '17') {
+            categoryType = 'worthy';
+        } else {
+            categoryType = 'normal';
+        }
         function convertFixed() {
             totalPrice = parseFloat(totalPrice).toFixed(2);
             containerPrice = parseFloat(containerPrice).toFixed(2);
             containerDiscount = parseFloat(containerDiscount).toFixed(2);
             shippingPrice = parseFloat(shippingPrice).toFixed(2);
+        }
+
+        function setValue() {
+            if(shippingType === 'til_bed') {
+                if(distance > 80) {
+                    shippingPrice = parseFloat(distance * til_price).toFixed(2);
+                } else {
+                    shippingPrice = 400.00;
+                }
+                containerDiscount = currentQty * discountPerContainer * pricePerContainer / 100;
+                totalPrice = parseFloat(containerPrice) * parseFloat(currentQty) + parseFloat(shippingPrice) - parseFloat(containerDiscount);			
+                convertFixed();
+                $('#container-qty').text(currentQty);
+                $('#zip-ship').text('$' + shippingPrice);
+                $('#zip-discount').text('$' + containerDiscount);
+                $('#zip-total').text('$' + totalPrice);
+            } else if(shippingType === 'flat_bed') {
+                if(distance > 80) {
+                    shippingPrice = parseFloat(distance * flat_price).toFixed(2);
+                } else {
+                    shippingPrice = 400.00;
+                }
+                containerDiscount = currentQty * discountPerContainer * pricePerContainer / 100;
+                totalPrice = parseFloat(containerPrice) * parseFloat(currentQty) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
+                convertFixed();
+                $('#container-qty').text(currentQty);
+                $('#zip-ship').text('$' + shippingPrice);
+                $('#zip-discount').text('$' + containerDiscount);
+                $('#zip-total').text('$' + totalPrice);
+            }
+            else if(shippingType === 'pickup') {
+                shippingPrice = 0.00;
+                containerDiscount = currentQty * discountPerContainer * pricePerContainer / 100;
+                totalPrice = parseFloat(containerPrice) * parseFloat(currentQty) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
+                convertFixed();
+                $('#container-qty').text(currentQty);
+                $('#zip-ship').text('$' + shippingPrice);
+                $('#zip-discount').text('$' + containerDiscount);
+                $('#zip-total').text('$' + totalPrice);
+            }
+        }
+
+        function ajaxSetValue() {
+            containerPrice = currentQty * pricePerContainer;
+            containerDiscount = currentQty * discountPerContainer * pricePerContainer / 100;
+            totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
+            convertFixed();
+            $('#zip-shipping').val(shippingPrice);
+            $('#zip-start').text(depot);
+            $('#zip-end').text(destination);
+            $('#zip-distance').text(distance + 'miles');
+            $('#container-qty').text(currentQty);
+            $('#zip-container').text('$' + containerPrice);
+            $('#zip-discount').text('$' + containerDiscount);
+            $('#zip-ship').text('$' + shippingPrice);
+            $('#zip-total').text('$' + totalPrice);
+        }
+
+        function structureDepots(otherBases) {
+            otherBases.forEach(function(base){
+                var otherDepot = $(
+                    `
+                        <div class="other-bases" data-bs-dismiss="modal" aria-label="Close">
+                            <div>Depot Name: <b>${base['depot']}</b></div>
+                            <div>Distance: <b>${parseFloat(base['distance']).toFixed(2)}</b> <b>miles</b></div>
+                        </div>
+                    `
+                )
+                $('#depots-container').append(otherDepot);
+            })
         }
 
         for(var i=0; i<pricePerMile.length ; i++) {
@@ -561,6 +788,17 @@
             }
         }
 
+        $('#quantity').change(function() {
+            console.log('changed');
+            currentQty = $('#quantity').val();
+            setValue();
+            ajaxSetValue();
+        })
+        $('#qty').change(function() {
+            console.log('ok');
+            
+        })
+
 		$('#zip-button').click(function() {
 			zipCode = $('#zip-input').val();
 			$.ajax({
@@ -569,12 +807,12 @@
                 data:{
                     _token:"{{csrf_token()}}",
                     zipCode:zipCode,
-                    shippingType: shippingType
+                    shippingType: shippingType,
+                    categoryType: categoryType
                 },
                 success:function(response){
 					$('#zip-input').removeClass('is-err');
 					$('#zip-input-err').addClass('err-init');
-					$('#add-form').removeClass('dis-init');
 					if(typeof(response)!='object'){
 						response=$.parseJSON(response);
 					}
@@ -582,22 +820,20 @@
 						console.log(response.msg);
 						var data = response.msg;
 						distance = data['distance'];
-						shippingPrice = parseFloat(data.shippingPrice).toFixed(2);
-						currentQty = $('#quantity').val();
-						containerPrice = currentQty * pricePerContainer;
-						containerDiscount = currentQty * discountPerContainer * pricePerContainer / 100;
-						totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
-						convertFixed();
-						$('#zip-shipping').val(shippingPrice);
-						$('#zip-start').text(data.depot);
-						$('#zip-end').text(data.des);
-						$('#zip-distance').text(distance + 'miles');
-						$('#container-qty').text(currentQty);
-						$('#zip-container').text('$' + containerPrice);
-						$('#zip-discount').text('$' + containerDiscount);
-						$('#zip-ship').text('$' + shippingPrice);
-						$('#zip-total').text('$' + totalPrice);
-					}
+                        if(distance > 300) {
+                            $('#zipcode').val(zipCode);
+                            $('#modal-distance').text(distance);
+                            $('#quote-modal').modal('show');
+                        } else {
+                            $('#add-form').removeClass('dis-init');
+                            shippingPrice = parseFloat(data.shippingPrice).toFixed(2);
+                            currentQty = $('#quantity').val();
+                            depot = data.depot;
+                            destination = data.destination;
+                            ajaxSetValue();
+                            structureDepots(data.otherBases);
+                        }
+                    }
 					else{
 						$('#zip-input').addClass('is-err');
 						$('#zip-input-err').removeClass('err-init');
@@ -619,36 +855,27 @@
                 case 'delivery-tilbed': shippingType = 'til_bed'; break;
                 case 'delivery-pickup': shippingType = 'pickup'; break;
             }
-            if(shippingType === 'til_bed') {
-                if(distance > 80) {
-                    shippingPrice = parseFloat(distance * til_price).toFixed(2);
-                } else {
-                    shippingPrice = 400.00;
-                }
-                totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
-                convertFixed();
-                $('#zip-ship').text('$' + shippingPrice);
-                $('#zip-total').text('$' + totalPrice);
-            } else if(shippingType === 'flat_bed') {
-                if(distance > 80) {
-                    shippingPrice = parseFloat(distance * flat_price).toFixed(2);
-                } else {
-                    shippingPrice = 400.00;
-                }
-                totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
-                convertFixed();
-                $('#zip-ship').text('$' + shippingPrice);
-                $('#zip-total').text('$' + totalPrice);
-            }
-            else if(shippingType === 'pickup') {
-                shippingPrice = 0.00;
-                totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
-                convertFixed();
-                $('#zip-ship').text('$' + shippingPrice);
-                $('#zip-total').text('$' + totalPrice);
-            }
+            currentQty = $('#quantity').val();
+            setValue();
             console.log(shippingType);
         })
+        $('#depots-container').on('click', '.other-bases', function() {
+            var newDistance = 0.00;
+            var newDepot = '';
+            var newDepot = $(this).find('b').eq(0).text();
+            console.log("First Child:", newDepot);
+            var newDistance = $(this).find('b').eq(1).text();
+            console.log("Second Child:", newDistance);
+            depot = newDepot;
+            distance = parseFloat(newDistance).toFixed(2);
+            ajaxSetValue();
+            setValue();
+            $('#other-depots-modal').modal('hide'); // Closes the modal
+        })
+        $('#quote-modal-close').click(function() {
+            $('#quote-modal').modal('hide');
+        })
+        
 	</script>
 
     {{-- <script>

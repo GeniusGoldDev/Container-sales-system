@@ -1148,7 +1148,7 @@ object {
 	padding: 0px;
 	overflow-y: auto;
 	max-height: 510px;
-	height: 700px;
+	/* height: 700px; */
 }
 .quickview-content {
 	padding: 40px 40px;
