@@ -421,6 +421,88 @@
         </div>
 	    <!-- End Most Popular Area -->
 
+    <div class="modal" id="quote-modal" role="dialog">
+        <div class=" row" role="document">
+            <div class="modal-content col-12 col-md-10 col-lg-8  mx-auto" style="padding: 50px;">
+                <div class="">
+                    <h4 class="mb-2" style="color: #3131cf">Write a quote</h4>                                               
+                    <h5 class="mb-2">Distance: <b id="modal-distance"></b> miles</h5>                                                
+                </div>    
+                <div class="divider"></div>       
+                <form class="form-contact form contact_form" method="post" action="{{route('product.quote')}}" id="contactForm" novalidate="novalidate">
+                    @csrf         
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Your Name<span class="custom-span">*</span></label>
+                                <input class="custom-input" name="name" id="name" type="text" placeholder="Enter your name">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Your Surname<span class="custom-span">*</span></label>
+                                <input class="custom-input" name="subject" type="text" id="subject" placeholder="Enter Surname">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Your Email<span class="custom-span">*</span></label>
+                                <input class="custom-input" name="email" type="email" id="email" placeholder="Enter email address">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Your Phone<span class="custom-span">*</span></label>
+                                <input class="custom-input" id="phone" name="phone" type="number" placeholder="Enter your phone">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Zip Code<span class="custom-span">*</span></label>
+                                <input class="custom-input" id="zipcode" name="zipcode" type="number" placeholder="Enter your zipcode" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="form-group">
+                                <label class="custom-label">Quentity<span class="custom-span">*</span></label>
+                                <input class="custom-input" id="qty" name="qty" type="number" placeholder="Enter your quantity" value='1'>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group message">
+                                <label class="custom-label">your message<span class="custom-span">*</span></label>
+                                <textarea class="custom-textarea" name="message" id="message" cols="30" rows="9" placeholder="Enter Message"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group button">
+                                <button type="submit" data-bs-dismiss="modal" aria-label="Close" class="btn" >Send Message</button>
+                                <button class="btn" id="quote-modal-close">Close</button>
+                            </div>
+                        </div>
+                        <input type="hidden" id="">
+                    </div>          
+                </form>                                          
+            </div>
+        </div>                                                           
+    </div>
+
+    <div class="modal" id="other-depots-modal" role="dialog">
+        <div class="modal-dialog row" role="document">
+            <div class="modal-content p-3 col-12 col-md-10 col-lg-8  mx-auto">
+                <div class="">
+                    <h3>Select other depots</h3>                                               
+                </div>    
+                <div class="divider"></div>                
+                <div class="modal-body" style="max-height: 500px !important;">
+                    <h5 class="mb-4">Available depots</h5>
+                    <div id="depots-container">
+
+                    </div>
+                </div>                               
+            </div>
+        </div>                                                           
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="modelExample" tabindex="-1" role="dialog">
@@ -582,12 +664,6 @@
 		.star-rating__input:checked ~ .star-rating__ico:before {
 		content: "\F005";
 		}
-        .shop.single .product-gallery .slides li img {
-            height: 433px;
-        }
-        li img {
-            height: 100px;
-        }
 
         .error {
             color: red;
@@ -779,34 +855,8 @@
                 case 'delivery-tilbed': shippingType = 'til_bed'; break;
                 case 'delivery-pickup': shippingType = 'pickup'; break;
             }
-            if(shippingType === 'til_bed') {
-                if(distance > 80) {
-                    shippingPrice = parseFloat(distance * til_price).toFixed(2);
-                } else {
-                    shippingPrice = 400.00;
-                }
-                totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);			
-                convertFixed();
-                $('#zip-ship').text('$' + shippingPrice);
-                $('#zip-total').text('$' + totalPrice);
-            } else if(shippingType === 'flat_bed') {
-                if(distance > 80) {
-                    shippingPrice = parseFloat(distance * flat_price).toFixed(2);
-                } else {
-                    shippingPrice = 400.00;
-                }
-                totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
-                convertFixed();
-                $('#zip-ship').text('$' + shippingPrice);
-                $('#zip-total').text('$' + totalPrice);
-            }
-            else if(shippingType === 'pickup') {
-                shippingPrice = 0.00;
-                totalPrice = parseFloat(containerPrice) + parseFloat(shippingPrice) - parseFloat(containerDiscount);
-                convertFixed();
-                $('#zip-ship').text('$' + shippingPrice);
-                $('#zip-total').text('$' + totalPrice);
-            }
+            currentQty = $('#quantity').val();
+            setValue();
             console.log(shippingType);
         })
         $('#depots-container').on('click', '.other-bases', function() {
