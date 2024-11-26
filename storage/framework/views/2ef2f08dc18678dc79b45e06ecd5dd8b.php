@@ -36,10 +36,13 @@
 						</div>
 					</div>
 					<div class="col-lg-6 col-12">
-						<div class="about-img overlay">
-                            <img src="<?php echo e(asset('images/chuttersnap-eqwFWHfQipg-unsplash.jpg')); ?>" alt="Container Image">
-						</div>
-					</div>
+                        <div class="about-img overlay">
+                            <!-- Video Element -->
+                            <video controls autoplay muted loop style="width: 100%; height: auto;">
+                                <source src="<?php echo e(asset('images/2.mp4')); ?>" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
 				</div>
 			</div>
 	</section>

@@ -31,7 +31,6 @@
                                     <h3 class="title">Categories</h3>
                                     <ul class="categor-list">
 										<?php
-											// $category = new Category();
 											$menu=App\Models\Category::getAllParentWithChild();
 										?>
 										<?php if($menu): ?>

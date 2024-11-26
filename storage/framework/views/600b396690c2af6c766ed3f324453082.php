@@ -83,21 +83,7 @@
                     <div class="right-bar">
                         <!-- Search Form -->
                         <div class="sinlge-bar shopping">
-                            <!-- <div style="margin-left: 20px;">
-                                <p style="color: black;">
-                                    <?php if(auth()->guard()->check()): ?>
-                                    <?php if(Auth::user()->role=='admin'): ?>
-                                        <li><i class="ti-user"></i> <a href="<?php echo e(route('admin')); ?>"  target="_blank">Dashboard</a></li>
-                                    <?php else: ?>
 
-                                    <?php endif; ?>
-                                        <li><i class="ti-power-off"></i> <a href="<?php echo e(route('user.logout')); ?>">Logout</a></li>
-
-                                    <?php else: ?>
-                                        <li><i class="ti-power-off"></i><a href="<?php echo e(route('login.form')); ?>">Login /</a> <a href="<?php echo e(route('register.form')); ?>">Register</a></li>
-                                    <?php endif; ?>
-                                </p>
-                            </div> -->
                         </div>
 
                     </div>
@@ -199,11 +185,11 @@
                                 <div class="navbar-collapse">
                                     <div class="nav-inner">
                                         <ul class="nav main-menu menu navbar-nav">
-                                            <li class="<?php echo e(Request::path()=='home' ? 'active' : ''); ?>"><a href="<?php echo e(route('home')); ?>">Home</a></li>
-                                            <li class="<?php echo e(Request::path()=='about-us' ? 'active' : ''); ?>"><a href="<?php echo e(route('about-us')); ?>">About Us</a></li>
-                                            <li class="<?php if(Request::path()=='product-grids'||Request::path()=='product-lists'): ?>  active  <?php endif; ?>"><a href="<?php echo e(route('product-grids')); ?>">Products</a><span class="new">New</span></li>
+                                            <li class="<?php echo e(Request::path()=='home' ? 'active' : ''); ?>"><a href="<?php echo e(route('home')); ?>"><?php echo e(__('messages.Home')); ?></a></li>
+                                            <li class="<?php echo e(Request::path()=='about-us' ? 'active' : ''); ?>"><a href="<?php echo e(route('about-us')); ?>"><?php echo e(__('messages.About Us')); ?></a></li>
+                                            <li class="<?php if(Request::path()=='product-grids'||Request::path()=='product-lists'): ?>  active  <?php endif; ?>"><a href="<?php echo e(route('product-grids')); ?>"><?php echo e(__('messages.Products')); ?></a><span class="new">New</span></li>
                                                 <!-- <?php echo e(Helper::getHeaderCategory()); ?> -->
-                                            <li class="<?php echo e(Request::path()=='contact' ? 'active' : ''); ?>"><a href="<?php echo e(route('contact')); ?>">Contact Us</a></li>
+                                            <li class="<?php echo e(Request::path()=='contact' ? 'active' : ''); ?>"><a href="<?php echo e(route('contact')); ?>"><?php echo e(__('messages.Contact Us')); ?> </a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -221,6 +207,8 @@
 <style>
     #middle-inner {
         background-image: url('/images/flag.png');
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 </style>
 <?php /**PATH E:\work\study\Complete-Ecommerce-in-laravel-10\resources\views/frontend/layouts/header.blade.php ENDPATH**/ ?>

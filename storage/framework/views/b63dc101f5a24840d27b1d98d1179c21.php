@@ -46,6 +46,10 @@ unset($__errorArgs, $__bag); ?>
           </select>
         </div>
 
+
+          <input style="display: none;" type="checkbox" name='is_parent' id='is_parent' value='1' checked>
+
+
         <div class="form-group">
           <label for="inputPhoto" class="col-form-label">Photo</label>
           <div class="input-group">

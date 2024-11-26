@@ -83,25 +83,9 @@
                     <div class="right-bar">
                         <!-- Search Form -->
                         <div class="sinlge-bar shopping">
-                            <!-- <div style="margin-left: 20px;">
-                                <p style="color: black;">
-                                    @auth
-                                    @if(Auth::user()->role=='admin')
-                                        <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">Dashboard</a></li>
-                                    @else
 
-                                    @endif
-                                        <li><i class="ti-power-off"></i> <a href="{{route('user.logout')}}">Logout</a></li>
-
-                                    @else
-                                        <li><i class="ti-power-off"></i><a href="{{route('login.form')}}">Login /</a> <a href="{{route('register.form')}}">Register</a></li>
-                                    @endauth
-                                </p>
-                            </div> -->
                         </div>
-
                     </div>
-
                     <div class="right-bar">
                         <!-- Search Form -->
                         <div class="sinlge-bar shopping">
@@ -199,11 +183,11 @@
                                 <div class="navbar-collapse">
                                     <div class="nav-inner">
                                         <ul class="nav main-menu menu navbar-nav">
-                                            <li class="{{Request::path()=='home' ? 'active' : ''}}"><a href="{{route('home')}}">Home</a></li>
-                                            <li class="{{Request::path()=='about-us' ? 'active' : ''}}"><a href="{{route('about-us')}}">About Us</a></li>
-                                            <li class="@if(Request::path()=='product-grids'||Request::path()=='product-lists')  active  @endif"><a href="{{route('product-grids')}}">Products</a><span class="new">New</span></li>
+                                            <li class="{{Request::path()=='home' ? 'active' : ''}}"><a href="{{route('home')}}">{{ __('messages.Home') }}</a></li>
+                                            <li class="{{Request::path()=='about-us' ? 'active' : ''}}"><a href="{{route('about-us')}}">{{ __('messages.About Us') }}</a></li>
+                                            <li class="@if(Request::path()=='product-grids'||Request::path()=='product-lists')  active  @endif"><a href="{{route('product-grids')}}">{{ __('messages.Products') }}</a><span class="new">New</span></li>
                                                 <!-- {{Helper::getHeaderCategory()}} -->
-                                            <li class="{{Request::path()=='contact' ? 'active' : ''}}"><a href="{{route('contact')}}">Contact Us</a></li>
+                                            <li class="{{Request::path()=='contact' ? 'active' : ''}}"><a href="{{route('contact')}}">{{ __('messages.Contact Us') }} </a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -221,5 +205,7 @@
 <style>
     #middle-inner {
         background-image: url('/images/flag.png');
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 </style>
