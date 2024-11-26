@@ -65,6 +65,23 @@ class MessageController extends Controller
         exit();
     }
 
+    public function quote(Request $request) {
+
+        $message=Message::create($request->all());
+
+        $data=array();
+        $data['url']=route('message.show',$message->id);
+        $data['date']=$message->created_at->format('F d, Y h:i A');
+        $data['name']=$message->name;
+        $data['email']=$message->email;
+        $data['phone']=$message->phone;
+        $data['message']=$message->message;
+        $data['subject']=$message->subject;
+        $data['photo']=Auth()->user()->photo;
+        event(new MessageSent($data));
+        exit();
+    }
+
     /**
      * Display the specified resource.
      *

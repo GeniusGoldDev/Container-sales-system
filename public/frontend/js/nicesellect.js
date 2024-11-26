@@ -108,26 +108,12 @@ $('.btn-number').click(function(e){
     type      = $(this).attr('data-type');
     var input = $("input[name='"+fieldName+"']");
     var currentVal = parseInt(input.val());
-    var containerPrice = $('#zip-container').text().slice(1);
-    containerPrice = parseFloat(containerPrice).toFixed(2) / currentVal;
-    var discount = $('#zip-discount').text().slice(1);
-    discount = parseFloat(discount).toFixed(2) / currentVal;
-    discount = discount.toFixed(2);
-    var shippingPrice = parseFloat($('#zip-shipping').val()).toFixed(2);
-    
+
     if (!isNaN(currentVal)) {
         if(type == 'minus') {
             
             if(currentVal > input.attr('data-min')) {
                 input.val(currentVal - 1).change();
-                var currentContainerPrice = containerPrice * (currentVal-1);
-                var currentDiscount = discount * (currentVal-1);
-                var totalPrice = parseFloat(currentContainerPrice) - parseFloat(currentDiscount) + parseFloat(shippingPrice);
-                totalPrice = totalPrice.toFixed(2);
-                currentDiscount = currentDiscount.toFixed(2);
-                $('#zip-container').text('$' + currentContainerPrice);
-                $('#zip-discount').text('$' + currentDiscount);
-                $('#zip-total').text('$' + totalPrice);
             } 
             if(parseInt(input.val()) == input.attr('data-min')) {
                 $(this).attr('disabled', true);
@@ -137,14 +123,6 @@ $('.btn-number').click(function(e){
 
             if(currentVal < input.attr('data-max')) {
                 input.val(currentVal + 1).change();
-                var currentContainerPrice = containerPrice * (currentVal+1);
-                var currentDiscount = discount * (currentVal+1);
-                var totalPrice = parseFloat(currentContainerPrice) - parseFloat(currentDiscount) + parseFloat(shippingPrice);
-                totalPrice = totalPrice.toFixed(2);
-                currentDiscount = currentDiscount.toFixed(2);
-                $('#zip-container').text('$' + currentContainerPrice);
-                $('#zip-discount').text('$' + currentDiscount);
-                $('#zip-total').text('$' + totalPrice);
             }
             if(parseInt(input.val()) == input.attr('data-max')) {
                 $(this).attr('disabled', true);

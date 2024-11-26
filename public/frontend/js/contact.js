@@ -31,6 +31,9 @@ $(document).ready(function(){
                 message: {
                     required: true,
                     minlength: 20
+                },
+                pickup: {
+                    required: true
                 }
             },
             messages: {
@@ -52,7 +55,11 @@ $(document).ready(function(){
                 message: {
                     required: "um...yea, you have to write something to send this form.",
                     minlength: "Your subject must have at least 10 characters"
+                },
+                pickup: {
+                    required: "Pickup date must be needed"
                 }
+
             },
             submitHandler: function(form) {
                 $.ajaxSetup({
